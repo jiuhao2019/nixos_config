@@ -91,7 +91,7 @@ wezterm.on("format-tab-title", function(tab)
 	return string.format("%s %s", pad, pad)
 end)
 return {
-	enable_tab_bar = true,
+	enable_tab_bar = false,
 	use_fancy_tab_bar = false,
 	tab_bar_at_bottom = false,
 	show_new_tab_button_in_tab_bar = false,
