@@ -212,6 +212,26 @@
 (setq org-refile-targets
       '((nil :maxlevel . 9)))
 
+(defcustom my-org-directories
+  '("~/org/"
+    "~/notes/"
+    "~/work/org/")
+  "Directories containing Org files used as refile targets."
+  :type '(repeat directory)
+  :group 'org)
+
+(defun my-org-refile-files ()
+  "Return all Org files under `my-org-directories`."
+  (delete-dups
+   (apply #'append
+          (mapcar
+           (lambda (directory)
+             (when (file-directory-p directory)
+               (directory-files-recursively
+                (expand-file-name directory)
+                "\\.org\\'")))
+           my-org-directories))))
+
 (defun my-org-refile-targets ()
   "Return dynamic Org refile targets."
   (append
@@ -221,15 +241,12 @@
       (cons file '(:maxlevel . 9)))
     (my-org-refile-files))))
 
-;; ------------------------------------------------------------
-;; 动态替换 org-refile-targets
-;; ------------------------------------------------------------
 (defun my-org-refile-refresh-targets ()
   "Refresh Org refile targets."
+  (interactive)
   (setq org-refile-targets
         (my-org-refile-targets)))
 
-;; 每次启动时初始化
 (my-org-refile-refresh-targets)
 
 ;; org-refile 时可以直接搜索完整路径，比逐级进入目录式选择快
