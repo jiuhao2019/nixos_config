@@ -203,15 +203,38 @@
 
 ;; 将标题refile到哪里去 -> 目标文件夹或文件
 ;;能refile到哪些级别标记去，这里设置能去的是最大第9层标题
+;; ------------------------------------------------------------
+;; Org Refile Targets
+;;
+;; 每次执行 Refile 时动态获取 .org 文件
+;; 不会出现 *.org 作为目标
+;; ------------------------------------------------------------
 (setq org-refile-targets
-      '((nil :maxlevel . 9)
-        ("~/Downloads/note/org-files/*.org" :maxlevel . 9)
-        ("~/Downloads/note/capture-file/*.org"   :maxlevel . 9)))
+      '((nil :maxlevel . 9)))
+
+(defun my-org-refile-targets ()
+  "Return dynamic Org refile targets."
+  (append
+   '((nil :maxlevel . 9))
+   (mapcar
+    (lambda (file)
+      (cons file '(:maxlevel . 9)))
+    (my-org-refile-files))))
+
+;; ------------------------------------------------------------
+;; 动态替换 org-refile-targets
+;; ------------------------------------------------------------
+(defun my-org-refile-refresh-targets ()
+  "Refresh Org refile targets."
+  (setq org-refile-targets
+        (my-org-refile-targets)))
+
+;; 每次启动时初始化
+(my-org-refile-refresh-targets)
 
 ;; org-refile 时可以直接搜索完整路径，比逐级进入目录式选择快
 (setq org-refile-use-outline-path 'file)
 (setq org-outline-path-complete-in-steps nil)
-
 
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;                      slice Image display
