@@ -213,9 +213,8 @@
       '((nil :maxlevel . 9)))
 
 (defcustom my-org-directories
-  '("~/org/"
-    "~/notes/"
-    "~/work/org/")
+  '("~/Downloads/note/capture-file/"
+    "~/Downloads/note/org-files/")
   "Directories containing Org files used as refile targets."
   :type '(repeat directory)
   :group 'org)
