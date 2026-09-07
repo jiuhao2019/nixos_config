@@ -1,0 +1,10 @@
+[Desktop Entry]
+FullScreen=false
+
+[General]
+LockSidebar=true
+ShowSidebar=true
+
+[Recent Files]
+File1[$e]=/mnt/hgfs/chengzhao/datasheet/STM32/stm32f103c8t6/stm32f103c8.pdf
+Name1[$e]=stm32f103c8.pdf

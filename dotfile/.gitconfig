@@ -1,0 +1,36 @@
+[user]
+	name = jiuhao
+	email = 815514981@qq.com
+
+[core]
+	editor = nvim
+
+[credential]
+	helper = store
+
+[pull]
+	rebase = false
+
+[push]
+	autoSetupRemote = true
+
+[init]
+	defaultBranch = main
+
+[http]
+	proxy = http://127.0.0.1:7897
+
+[https]
+	proxy = http://127.0.0.1:7897
+
+[pager]
+    diff = diffnav
+    log = diffnav
+    reflog = diffnav
+[delta]
+    navigate = true
+    side-by-side = true
+    line-numbers = true
+    syntax-theme = Dracula
+[safe]
+	directory = *

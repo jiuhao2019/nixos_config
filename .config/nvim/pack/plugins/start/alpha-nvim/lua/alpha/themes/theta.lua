@@ -1,0 +1,263 @@
+local utils = require("alpha.utils")
+local dashboard = require("alpha.themes.dashboard")
+
+local if_nil = vim.F.if_nil
+
+local file_icons = {
+    enabled = true,
+    highlight = true,
+    -- available: devicons, mini, to use nvim-web-devicons or mini.icons
+    -- if provider not loaded and enabled is true, it will try to use another provider
+    provider = "mini",
+}
+
+local function icon(fn)
+    return utils.get_icon(file_icons, fn)
+end
+
+local function file_button(fn, sc, short_fn, autocd)
+    short_fn = short_fn or fn
+    local ico_txt
+    local fb_hl = {}
+
+    if file_icons.enabled then
+        local ico, hl = icon(fn)
+        local hl_option_type = type(file_icons.highlight)
+        if hl_option_type == "boolean" then
+            if hl and file_icons.highlight then
+                table.insert(fb_hl, { hl, 0, #ico })
+            end
+        end
+        if hl_option_type == "string" then
+            table.insert(fb_hl, { file_icons.highlight, 0, #ico })
+        end
+        ico_txt = ico .. "  "
+    else
+        ico_txt = ""
+    end
+    local cd_cmd = (autocd and " | cd %:p:h" or "")
+    local file_button_el =
+        dashboard.button(sc, ico_txt .. short_fn, "<cmd>e " .. vim.fn.fnameescape(fn) .. cd_cmd .. " <CR>")
+    local fn_start = short_fn:match(".*[/\\]")
+    if fn_start ~= nil then
+        table.insert(fb_hl, { "Comment", #ico_txt - 2, #fn_start + #ico_txt })
+    end
+    file_button_el.opts.cursor = vim.fn.strdisplaywidth(ico_txt)
+    file_button_el.opts.hl = fb_hl
+    return file_button_el
+end
+
+local default_mru_ignore = { "gitcommit" }
+
+local mru_opts = {
+    ignore = function(path, ext)
+        return (string.find(path, "COMMIT_EDITMSG")) or (vim.tbl_contains(default_mru_ignore, ext))
+    end,
+    autocd = false,
+}
+
+local git_info = { is_git = false, branch = nil }
+local _git_cwd = nil
+
+local function update_git_info()
+    local cwd = vim.fn.getcwd()
+    if cwd == _git_cwd then return end
+    _git_cwd = cwd
+    local git_root = utils.git_worktree_root(cwd)
+    if not git_root then
+        git_info = { is_git = false, branch = nil }
+        return
+    end
+    local branch = vim.fn.systemlist({ "git", "-C", cwd, "branch", "--show-current" })[1]
+    git_info = {
+        is_git = true,
+        branch = (branch and branch ~= "") and branch or nil,
+    }
+end
+
+
+
+-- Module-level plenary cache; only marked tried on success so lazy-loaded
+-- plenary is picked up on the next redraw after it becomes available.
+local _plenary_path, _plenary_tried
+
+local function _mru_impl(fetch_fn, start, cwd, items_number, opts)
+    opts = opts or mru_opts
+    items_number = if_nil(items_number, 10)
+
+    local found = fetch_fn(cwd, items_number, opts.ignore)
+    local target_width = 35
+
+    local tbl = {}
+    for i, fn in ipairs(found) do
+        local short_fn
+        if cwd then
+            short_fn = vim.fn.fnamemodify(fn, ":.")
+        else
+            short_fn = vim.fn.fnamemodify(fn, ":~")
+        end
+
+        if #short_fn > target_width then
+            if not _plenary_tried then
+                local ok
+                ok, _plenary_path = pcall(require, "plenary.path")
+                if ok then _plenary_tried = true else _plenary_path = nil end
+            end
+            if _plenary_path then
+                short_fn = _plenary_path.new(short_fn):shorten(1, { -2, -1 })
+                if #short_fn > target_width then
+                    short_fn = _plenary_path.new(short_fn):shorten(1, { -1 })
+                end
+            end
+        end
+
+        local shortcut = tostring(i + start - 1)
+        tbl[i] = file_button(fn, shortcut, short_fn, opts.autocd)
+    end
+    return { type = "group", val = tbl, opts = {} }
+end
+
+--- @param start number
+--- @param cwd string? optional
+--- @param items_number number? optional number of items to generate, default = 10
+local function mru(start, cwd, items_number, opts)
+    return _mru_impl(utils.get_mru, start, cwd, items_number, opts)
+end
+
+--- @param start number
+--- @param cwd string? optional
+--- @param items_number number? optional number of items to generate, default = 10
+local function mru_git(start, cwd, items_number, opts)
+    return _mru_impl(utils.get_git_files, start, cwd, items_number, opts)
+end
+
+local header = {
+    type = "text",
+    val = {
+        [[                                  __]],
+        [[     ___     ___    ___   __  __ /\_\    ___ ___]],
+        [[    / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\]],
+        [[   /\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \]],
+        [[   \ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
+        [[    \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
+    },
+    opts = {
+        position = "center",
+        hl = "Type",
+        -- wrap = "overflow";
+    },
+}
+
+local section_mru = {
+    type = "group",
+    val = {
+        {
+            type = "text",
+            val = "Recent files",
+            opts = {
+                hl = "SpecialComment",
+                shrink_margin = false,
+                position = "center",
+            },
+        },
+        { type = "padding", val = 1 },
+        {
+            type = "group",
+            val = function()
+                return { mru(0, vim.fn.getcwd()) }
+            end,
+            opts = { shrink_margin = false },
+        },
+    },
+}
+
+local section_mru_git = {
+    type = "group",
+    val = function()
+        update_git_info()
+        return {
+            {
+                type = "text",
+                val = function()
+                    local branch = git_info.branch
+                    if branch then
+                        return "MRU " .. branch
+                    else
+                        return "MRU"
+                    end
+                end,
+                opts = {
+                    hl = "SpecialComment",
+                    shrink_margin = false,
+                    position = "center",
+                },
+            },
+            { type = "padding", val = 1 },
+            {
+                type = "group",
+                val = function()
+                    return { mru_git(0, vim.fn.getcwd()) }
+                end,
+                opts = { shrink_margin = false },
+            },
+        }
+    end,
+}
+
+local buttons = {
+    type = "group",
+    val = {
+        { type = "text",    val = "Quick links", opts = { hl = "SpecialComment", position = "center" } },
+        { type = "padding", val = 1 },
+        dashboard.button("e", "  New file", "<cmd>ene<CR>"),
+        dashboard.button("SPC f f", "󰈞  Find file"),
+        dashboard.button("SPC f g", "󰊄  Live grep"),
+        dashboard.button("c", "  Configuration", "<cmd>exe 'cd' stdpath ('config')<CR>"),
+        dashboard.button("u", "  Update plugins", "<cmd>Lazy sync<CR>"),
+        dashboard.button("q", "󰅚  Quit", "<cmd>qa<CR>"),
+    },
+    position = "center",
+}
+
+local config = {
+    layout = {
+        { type = "padding", val = 2 },
+        header,
+        { type = "padding", val = 2 },
+        section_mru,
+        { type = "padding", val = 2 },
+        buttons,
+    },
+    opts = {
+        margin = 5,
+        setup = function()
+            vim.api.nvim_create_autocmd('DirChanged', {
+                pattern = '*',
+                group = "alpha_temp",
+                callback = function()
+                    utils.mru_cache = {}
+                    utils.git_toplevel_cache = {}
+                    _git_cwd = nil
+                    require('alpha').redraw()
+                    vim.cmd('AlphaRemap')
+                end,
+            })
+        end,
+    },
+}
+
+return {
+    header = header,
+    buttons = buttons,
+    mru = mru,
+    mru_git = mru_git,
+    section_mru = section_mru,
+    section_mru_git = section_mru_git,
+    config = config,
+    -- theme specific config
+    mru_opts = mru_opts,
+    leader = dashboard.leader,
+    file_icons = file_icons,
+    -- deprecated
+    nvim_web_devicons = file_icons,
+}

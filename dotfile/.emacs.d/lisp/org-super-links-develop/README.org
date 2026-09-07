@@ -1,0 +1,450 @@
+#+TITLE: org-super-links
+
+Create links with auto backlinks is the general idea.
+
+I'm trying to keep this as flexible as possible. There are a few different ways to use this to support different use cases and workflows. See [[#usage][Usage]] for a more detailed explanation. There are also a few tips and useful functions on the [[https://github.com/toshism/org-super-links/wiki/Tips][wiki tips page]].
+
+I also want to keep this as close to pure org-mode as possible. No external db, no functions required for reading, etc. It should function as just a regular org-mode file. This makes it much more usable for me on my phone. Using [[https://beorgapp.com/][beorg]] or [[https://organice.200ok.ch/][organice]] for example. It also allows the links to function as normal for exporting and things like that. It's just pure org.
+
+* Contents
+
+- [[#screenshots][Screenshots]]
+- [[#installation][Installation]]
+- [[#usage][Usage]]
+- [[#configuration][Configuration]]
+- [[#tips][Tips]]
+- [[#related][Related Packages]]
+- [[#changelog][Changelog]]
+
+* Screenshots
+
+Everybody loves screenshots, right?
+
+org-super-links-link
+[[images/sl-link.gif]]
+
+related drawer
+[[images/related-drawer.gif]]
+
+capture template
+[[images/capture-template.gif]]
+
+* Super basic example
+
+View the org source to get a better idea of how this looks.
+
+#+begin_src
+,* TODO Test heading target
+  :PROPERTIES:
+  :ID:       02a5da87-46e5-4ae0-85c1-ee63a570270a
+  :END:
+  :BACKLINKS:
+  [2020-04-11 Sat 00:26] <- [[id:3835d3d0-931a-4a45-a015-a3d6a0baa99a][This has a link]]
+  :END:
+
+This has a backlink as you can see from the BACKLINKS drawer above.
+
+,* TODO This has a link
+  :PROPERTIES:
+  :ID:       3835d3d0-931a-4a45-a015-a3d6a0baa99a
+  :END:
+
+This has a link pointing to the heading above
+
+[[id:02a5da87-46e5-4ae0-85c1-ee63a570270a][Test heading target]]
+#+end_src
+
+* Installation
+
+Maybe someday I'll put this on melpa, but it is not currently.
+
+I personally use [[https://github.com/radian-software/straight.el][straight]] and [[https://github.com/jwiegley/use-package][use-package]] for package management. It's pretty nice.
+
+Install develop branch using straight.
+#+begin_src elisp
+(use-package org-super-links
+  :straight (org-super-links :type git :host github :repo "toshism/org-super-links" :branch "develop")
+  :bind (("C-c s s" . org-super-links-link)
+         ("C-c s l" . org-super-links-store-link)
+         ("C-c s C-l" . org-super-links-insert-link)))
+#+end_src
+
+You can also use [[https://github.com/quelpa/quelpa][quelpa]] with [[https://github.com/quelpa/quelpa-use-package][quelpa-use-package]]. Example basic configuration using quelpa:
+#+begin_src elisp
+  (use-package org-super-links
+    :quelpa (org-super-links :repo "toshism/org-super-links" :fetcher github :commit "0.5")
+    :bind (("C-c s s" . org-super-links-link)
+         ("C-c s l" . org-super-links-store-link)
+         ("C-c s C-l" . org-super-links-insert-link)))
+#+end_src
+
+* Usage
+
+The idea is to keep this as simple as possible and not enforce any particular system or workflow, but to be flexible enough to support many. It's a simple concept, when you insert a link, insert a backlink at the target.
+
+There are a few different ways you can use this to integrate into your preferred workflow.
+
+*** Org link replacement
+
+Use it just like you would use regular org links. Instead of calling =org-store-link= call =org-super-links-store-link=. Then to insert the link instead of =org-insert-link= call =org-super-links-insert-link=. That will insert a link as normal while also adding a backlink at the target of the link. This should work the same as regular org links, with the benefit of adding the backlink.
+
+*** org-super-links-link
+
+To create a link at point call =org-super-links-link=. That will bring up the configured search interface (=helm-org-ql= by default) and allow you to select the target. Once selected a link will be inserted at point, and a backlink added to target.
+
+*** helm-org-ql/helm-org-rifle action
+
+There is also a =helm-org-ql= and =helm-org-rifle= action. To use this method, with the point at the place you would like the link, call =helm-org-ql= / =helm-org-rifle=. Select the target of the link and from the actions menu choose =Super Link=. A link pointing to the selected candidate will be created at point, and a backlink will be added to the target.
+
+*** org-super-links-quick-insert-inline-link
+
+Creates a link ignoring the =org-super-links-related-into-drawer= and =org-super-links-link-prefix= settings and inserts a link with no prefix at point.
+
+*** org-super-links-quick-insert-drawer-link
+
+The inverse of =org-super-links-quick-insert-inline-link=. Insert a link ignoring the =org-super-links-related-into-drawer= and =org-super-links-link-prefix= settings. Inserts a link using =org-super-links-link-prefix-timestamp= for the prefix and either =org-super-links-related-into-drawer= or =org-super-links-related-drawer-default-name= for the drawer name. =org-super-links-related-into-drawer= has precedence if it's set to a string.
+
+*** org-super-links-delete-link
+
+Delete the link at point, and the corresponding reverse link.
+If no reverse link exists, just delete link at point.
+This works from either side, and deletes both sides of a link.
+
+*** org-super-links-convert-link-to-super
+
+Convert a normal org-mode link at `point' to super link.  If
+=org-super-links-related-into-drawer= is non-nil move the link into drawer.
+
+When called interactively with a =C-u= prefix argument ignore
+=org-super-links-related-into-drawer= configuration and do not modify existing
+link. Only add the backlink.
+
+* Configuration
+
+The variables below allow quite a bit of flexibility to allow you to fit =org-super-links= into your workflow. None of these are required. My personal config is [[#my-personal-setup-and-configuration][here]]
+
+*** org-super-links-backlink-into-drawer
+
+   Controls how/where to insert the backlinks.
+   If non-nil a drawer will be created and backlinks inserted there.  The
+   default is BACKLINKS.  If this is set to a string a drawer will be
+   created using that string.  For example LINKS.  If nil backlinks will
+   just be inserted under the heading.
+
+   Default: =t=
+
+*** org-super-links-backlink-prefix
+
+   Prefix to insert before the backlink.
+
+   This can be a string, nil, or a function that takes no arguments
+   and returns a string.
+
+   Default is the function =org-super-links-backlink-prefix-timestamp= which returns
+   an inactive timestamp formatted according to the variable
+   =org-time-stamp-formats= and a separator ` <- `.
+
+*** org-super-links-backlink-postfix
+
+   Postfix to insert after the backlink.
+   This can be a string, nil, or a function that takes no arguments and
+   returns a string
+
+   Default =nil=
+
+*** org-super-links-related-into-drawer
+
+   Controls how/where to insert links.
+   If non-nil a drawer will be created and links inserted there.  The
+   default is =org-super-links-related-drawer-default-name=.  If this is set to a
+   string a drawer will be created using that string.  For example LINKS.
+   If nil links will just be inserted at point.
+
+   Default: =nil=
+
+*** org-super-links-related-drawer-default-name
+
+   Default name to use for link drawer if =org-super-links-related-into-drawer= is
+   =t=.  See [[#org-super-links-related-into-drawer][org-super-links-related-into-drawer]] for more info. This is also used
+   when calling =org-super-links-quick-insert-drawer-link= if
+   =org-super-links-related-into-drawer= is =nil=.
+
+   Default: =RELATED=
+
+*** org-super-links-link-prefix
+
+   Prefix to insert before the link.
+   This can be a string, =nil=, or a function that takes no arguments and
+   returns a string
+
+   Default =nil=
+
+*** org-super-links-link-postfix nil
+
+   Postfix to insert after the link.
+   This can be a string, =nil=, or a function that takes no arguments and
+   returns a string
+
+   Default =nil=
+
+*** org-super-links-default-description-formatter
+   :PROPERTIES:
+   :ID:       ba63c582-56ba-4772-94f6-8319f1b33ff0
+   :END:
+
+   What to use if no description is provided.
+   This can be a string, =nil= or a function that accepts two arguments
+   LINK and DESC and returns a string.
+
+   =nil= will return the default desciption or the link.
+   string will be used only as a default fall back if set.
+   function will be called for every link.
+
+   Default is the variable =org-make-link-desciption-function=.
+
+*** org-super-links-search-function
+
+   The interface to use for finding target links.
+   This can be a string with one of the values 'helm-org-ql',
+   'helm-org-rifle', or a function.  If you provide a custom
+   function it will be called with the `point` at the location the link
+   should be inserted.  The only other requirement is that it should call
+   the function =org-super-links--insert-link= with the =buffer= and =pos= of the
+   target link.  AKA the place you want the backlink.
+
+   Using [[https://github.com/alphapapa/org-ql][helm-org-ql]] or [[https://github.com/alphapapa/org-rifle][helm-org-rifle]] will also add a new action to
+   the respective action menu.
+
+   See the functions =org-super-links-get-location= (in the =org-super-links.el= file) or =org-super-links-org-ql-link-search-interface= (in =org-super-links-org-ql.el=) for examples.
+
+   Default is set based on currently installed packages. In order of priority:
+   1. "helm-org-ql"
+   2. "helm-org-rifle"
+   3. =org-super-links-get-location=
+
+   =org-super-links-get-location= internally uses =org-refile-get-location=.
+
+*** capture template
+
+If you want a link to the current point to be automatically stored whenever =org-capture= is called, simply add the following to your configuration:
+
+#+begin_src emacs-lisp
+(advice-add 'org-capture :before #'org-super-links-store-link)
+#+end_src
+
+Then, to insert this link, simply call =org-super-links-insert-link=. The backlink will be created automatically as usual.
+
+* Tips
+
+These are just a few tips on things you can do that may be interesting or helpful.
+
+*** org-id
+
+When creating links it's generally better to use an =id=. Add this to your config file so that any headings you link to or from get an id added automatically. I would strongly recommend using this.
+
+#+begin_src elisp
+(require 'org-id)
+(setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+#+end_src
+
+*** quick "related" link
+
+OUTDATED: I've added two functions to replace these. =org-super-links-quick-insert-drawer-link= and =org-super-links-quick-insert-inline-link=. I'll leave these here in case someone may still be interested for some reason.
+
+Often when I'm writing I just want to quickly add a link to another heading that may be related. I found it's convenient to use something like this.
+
+#+begin_src elisp
+  (defun org-super-links-quick-related ()
+    (interactive)
+    (let ((org-super-links-link-prefix "\nrelated: "))
+      (org-super-links-link)))
+
+  (global-set-key (kbd "C-c s r") 'org-super-links-quick-related)
+#+end_src
+
+Since =org-super-links= automatically stores the current heading any time you call =org-capture=. I use this one a lot to just quickly insert a link in the capture template without necessarily wanting to explain the context before I start writing.
+
+#+begin_src elisp
+  (defun org-super-links-quick-insert-related ()
+    (interactive)
+    (let ((org-super-links-link-prefix "\nrelated: "))
+      (org-super-links-insert-link)))
+
+  (global-set-key (kbd "C-c s i") 'org-super-links-quick-insert-related)
+#+end_src
+
+These quick related links make me think I should possibly add the option to log links into a drawer too. I find myself wanting to do this reasonably often. If anybody else feels the same I'll probably add that option.
+
+*** limit length of link description
+
+Sometimes heading titles can get a bit long. You can define a custom function to limit their length and set =org-super-links-default-description-formatter=. Here's a very naive way to keep them short. This will blindly truncate all link descriptions to a maximum of 20 characters. You could come up with a more sophisticated function for limiting the length by words or something.
+
+#+begin_src elisp
+  (defun org-super-links-truncate-description (link desc)
+    (truncate-string-to-width desc 20))
+
+  (setq org-super-links-default-description-formatter 'org-super-links-truncate-description)
+#+end_src
+
+The default value of =org-super-links-default-description-formatter= is set to =org-make-link-description= so you can also set that to apply the changes to all org-mode links globally.
+
+*** Index headlines
+
+I've found it's useful to create "index headlines" to make navigating notes convenient. For example I have a hierarchy of locations I use for location specific notes such as restaurant recommendations or vacation planning. These often end up being just a heading with a bunch of backlinks from various notes.
+
+#+begin_src
+
+,* Locations
+,** Germany                                                          :germany:
+,*** Berlin                                                           :berlin:
+   :BACKLINKS:
+   [2020-04-11 Sat 00:26] <- [[id:3835d3d0-931a-4a45-a015-a3d6a0baa99a][some restaurant]]
+   :END:
+,*** Wuerzburg                                                     :wuerzburg:
+   :BACKLINKS:
+   [2020-05-21 Sat 00:26] <- [[id:3835d3d0-931a-4a45-a015-a3d6a0baa99a][some other thing]]
+   [2020-04-11 Sat 00:26] <- [[id:3835d3d0-931a-4a45-a015-a3d6a0baa99][So and so's house]]
+   :END:
+,** USA
+,*** Texas                                                             :texas:
+,**** Amarillo                                                      :amarillo:
+   :BACKLINKS:
+   [2020-05-21 Sat 00:26] <- [[id:3835d3d0-931a-4a45-a015-a3d6a0baa99a][yeah again]]
+   [2020-04-11 Sat 00:26] <- [[id:3835d3d0-931a-4a45-a015-a3d6a0baa99a][rental car place]]
+   :END:
+,**** Austin                                                          :austin:
+     etc...
+
+ #+end_src
+
+I do a similar thing for any topic I find myself creating a lot of notes for but that I may not want to be under the same heading, or if I want it under multiple headings.
+
+This combination of tags and index headings makes it easy to find things.
+
+*** My personal setup and configuration
+
+#+begin_src elisp
+(use-package org-super-links
+  :quelpa (org-super-links :repo "toshism/org-super-links" :fetcher github :commit "develop")
+  :bind (("C-c s s" . org-super-links-link)
+         ("C-c s l" . org-super-links-store-link)
+         ("C-c s C-l" . org-super-links-insert-link)
+         ("C-c s d" . org-super-links-quick-insert-drawer-link)
+         ("C-c s i" . org-super-links-quick-insert-inline-link)
+         ("C-c s C-d" . org-super-links-delete-link))
+  :config
+  (setq org-super-links-related-into-drawer t
+  	org-super-links-link-prefix 'org-super-links-link-prefix-timestamp))
+
+#+end_src
+
+Over time I've grown to prefer to just add links and backlinks both into drawers. I map =C-c s i= to =org-super-links-quick-insert-inline-link= for the rare occasion where I want a link inline. This ends up functioning sort of zettelkasten style.
+
+*** drawer size
+
+This is not specific to =org-super-links= but I like to set the face for drawers to be fairly small and the color close to the background. It helps keep things from looking cluttered when the drawers are collapsed.
+
+I use something like this in my theme.
+#+begin_src elisp
+(org-drawer :foreground "#2F3841" :height 0.8)
+#+end_src
+
+That will make the drawer quite small when collapsed but the text inside full size when expanded.
+
+*** org-export-with-broken-links
+
+If you export subheadings from your org file that have links/backlinks you may want to set =org-export-with-broken-links= to =t=. Otherwise you may see an error like
+#+begin_src
+user-error: Unable to resolve link: "*Heading with a backlink"
+#+end_src
+
+See [[https://github.com/toshism/org-super-links/issues/22][issue #22]]
+
+* Related
+
+[[https://github.com/toshism/org-super-links-peek][org-super-links-peek]] - take a peek at your links
+
+[[https://github.com/toshism/org-linker-edna][org-linker-edna]] - link headings as dependencies
+
+[[https://github.com/toshism/org-linker][org-linker]] - utility package to serve as a base for linking org headings in various ways
+
+* Changelog
+
+** 0.5
+
+[2026-05-18]
+
+- Emacs 30.1+ compatibility: fix timestamp formatting (#106)
+- Don't directly use the value of =org-time-stamp-format= (#78)
+- Add capture target buffer to search targets (#68)
+- Fix byte-compile warnings (#54)
+- =org-super-links-link= argument is now optional (#104)
+
+Breaking changes
+- =advice-add= for =org-capture= auto-store is no longer added automatically (#101). Users who relied on a link being stored whenever =org-capture= was called must now add the advice to their own configuration:
+  #+begin_src emacs-lisp
+  (advice-add 'org-capture :before #'org-super-links-store-link)
+  #+end_src
+
+Bugfixes
+- Handle target buffers potentially being narrowed (#73)
+- Keep the original narrowing states (#76)
+- Fix bug in =org-super-links-related-into-drawer=
+
+** 0.4
+
+- refactor org-super-links--insert-link
+- change prefix from sl- to org-super-links-
+
+Bugfixes
+- fixed incorrect link when backlink-into-drawer nil
+
+** 0.3
+
+[2020-09-21]
+
+- add org-super-links-convert-link-to-super
+- add delete link
+- remove dependency on helm
+  - add org-super-links-get-location search function [[https://github.com/piater][@piater]]
+- add related into drawer option
+- add quick inserts
+  - org-super-links-quick-insert-drawer-link
+  - org-super-links-quick-insert-inline-link
+- switch to using markers internally for all positions
+- add hooks
+  - org-super-links-pre-link-hook
+  - org-super-links-pre-backlink-hook
+- license change to GPLv3
+- support backlinks in org derived modes from [[https://github.com/philScholl][@philScholl]]
+
+Bugfixes
+- fixed bug with org-capture prefix being swallowed (thanks! [[https://github.com/piater][@piater]])
+- respect org-mode link configurations
+- fix possible incorrect link location after buffer modified by hook(s)
+- fix void-variable helm-org-ql-actions bug
+
+** 0.2
+
+[2020-04-25]
+
+- Default target heading search changed to =helm-org-ql=
+- Allow target heading search to be configurable through =org-super-links-search-function=
+- Add more configuration options for link formatting
+- Support for customizing the default link description =org-super-links-default-description-formatter=
+
+Bugfixes:
+- fix issue when calling =org-capture= from a non-org-mode buffer.
+
+** 0.1
+
+[2020-04-11] First release
+
+* Credits
+
+Thanks to:
+- [[https://github.com/alphapapa][alphapapa]] for the awesome [[http://github.com/alphapapa/org-ql][org-ql]] and [[http://github.com/alphapapa/org-rifle][org-rifle]] packages.
+
+* License
+
+GPLv3

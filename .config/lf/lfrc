@@ -1,0 +1,27 @@
+cmd open &{{
+    case "$f" in
+        *.c|*.h|*.cpp|*.rs|*.go|*.py|*.lua|*.sh|*.txt)
+            nvim "$f"
+            ;;
+        *.jpg|*.jpeg|*.png|*.webp|*.gif)
+            sxiv "$f"
+            ;;
+        *.mp4|*.mkv|*.avi|*.mov)
+            mpv "$f"
+            ;;
+        *.org)
+            emacs "$f"
+            ;;
+        *.pdf)
+            okular "$f"
+            ;;
+        *.odt|*.ods|*.odp|*.doc|*.docx|*.xls|*.xlsx|*.ppt|*.pptx)
+            libreoffice "$f"
+            ;;
+        *)
+            xdg-open "$f"
+            ;;
+    esac
+}}
+
+map o open

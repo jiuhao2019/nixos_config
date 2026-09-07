@@ -1,0 +1,297 @@
+*workspaces.nvim*         a simple workspace manager
+
+Author:  Nathan Craddock <https://nathancraddock.com>
+Repo:    https://github.com/natecraddock/workspaces.nvim
+License: MIT
+
+==============================================================================
+INTRODUCTION                                                      *workspaces*
+
+workspaces.nvim provides a few simple commands for managing workspace
+directories in neovim. A workspace is a name and a path, and opening a
+workspace will set the current directory to the correct path.
+
+* Register a workspace with |:Workspaces add|
+* Open a registered workspace with `:Workspaces open [name]`
+* Hooks may be registered to provide additional functionality
+* A telescope extension |:Telescope workspaces| is provided for fuzzy finding
+  over workspaces
+
+Nothing runs automatically. The idea is that workspace creation is an
+infrequent task, so there shouldn't be any need for automatic workspace
+registration, or heuristics to determine if a directory is a workspace. A
+command and telescope extension are provided to make it simple to open a
+workspace, but what that means beyond changing directories is left up to you by
+customizing the hooks.
+
+==============================================================================
+CONFIGURATION                                       *workspaces-configuration*
+
+Call the setup function with a table as the argument to override the default
+configuration. >
+
+    require("workspaces").setup({
+        -- path to a file to store workspaces data in
+        -- on a unix system this would be ~/.local/share/nvim/workspaces
+        path = vim.fn.stdpath("data") .. util.path.sep .. "workspaces",
+
+        -- to change directory for all of nvim (:cd) or only for the current
+        -- window (:lcd). if you are unsure, you likely want this to be true.
+        -- global_cd = true,
+
+        -- controls how the directory is changed. valid options are "global", "local", and "tab"
+        --   "global" changes directory for the neovim process. same as the :cd command
+        --   "local" changes directory for the current window. same as the :lcd command
+        --   "tab" changes directory for the current tab. same as the :tcd command
+        --
+        -- if set, overrides the value of global_cd
+        cd_type = "global",
+
+        -- sort the list of workspaces by name after loading from the
+        -- workspaces path.
+        sort = true,
+
+        -- sort by recent use rather than by name. requires sort to be true
+        mru_sort = true,
+
+        -- option to automatically activate workspace when opening neovim in a workspace directory
+        auto_open = false,
+
+        -- option to automatically activate workspace when changing directory not via this plugin
+        -- set to "autochdir" to enable auto_dir when using :e and vim.opt.autochdir
+        -- valid options are false, true, and "autochdir"
+        auto_dir = false,
+
+        -- enable info-level notifications after adding or removing a
+        -- workspace. disable to only be notified for warnings or errors.
+        notify_info = true,
+
+        -- lists of hooks to run after specific actions
+        -- hooks can be a lua function or a vim command (string)
+        -- if only one hook is needed, the list may be omitted
+        hooks = {
+            add = {},
+            remove = {},
+            open_pre = {}, -- run before changing directory
+            open = {},     -- run after changing directory
+        },
+    })
+<
+==============================================================================
+USAGE                                                       *workspaces-usage*
+
+:WorkspacesAdd [name] [path]                            *WorkspacesAdd*
+
+If both name and path are omitted, the current working directory will be
+registered as a workspace, with the last path segment as the name.
+
+If only name is provided, one of two actions will follow. (1) if name looks
+like a path, that path will be registered, (2) otherwise the current working
+directory will be registered as a workspace, with the given name.
+
+if both name and path are provided, the workspace with name and path will be
+registered.
+
+:WorkspacesAddDir [path]                                *WorkspacesAddDir*
+
+If the path is omitted, the current working directory will be
+registered as a directory, with the last path segment as the name.
+
+Each subfolder of this directory will be automatically registered as a
+workspace.
+
+:WorkspacesRemove [name]                                *WorkspacesRemove*
+
+If name is omitted, the workspace registered in the current working
+directory will be removed, if it exists.
+
+If name is provided, the specified workspace will be removed.
+
+:WorkspacesRemoveDir [name]                             *WorkspacesRemoveDir*
+
+If name is omitted, the directory registered in the current working
+directory will be removed, if it exists.
+
+If name is provided, the specified directory will be removed.
+
+When a directory is removed, all of its subfolders registered as workspaces
+are also removed.
+
+:WorkspacesList                                         *WorkspacesList*
+
+Prints all workspaces.
+
+:WorkspacesListDirs                                     *WorkspacesListDirs*
+
+Prints all directories.
+
+:WorkspacesOpen [name]                                  *WorkspacesOpen*
+
+Opens the named workspace. If no name is given, vim.ui.select() will be used
+as a selection interface for opening a workspace.
+
+:WorkspacesSyncDirs [name]                              *WorkspacesSyncDirs*
+
+For every registered directory, synchronizes workspaces based on the file
+system.
+
+If a directory subfolder has been removed or added, it will also be removed or
+added from the registered workspaces.
+
+All commands that take a workspace name (|:WorkspacesOpen| and
+|:WorkspacesRemove|) offer workspace name completion. |:WorkspacesAdd| offers
+filepath completion.
+
+==============================================================================
+HOOKS                                                       *workspaces-hooks*
+
+There are 4 types of hooks that can be registered in three categories: add,
+remove, and open.
+
+Each hook may be either a single command or Lua function, or a list of
+commands and Lua functions. See |workspaces-examples| for reference. If the
+hook is a Lua function, it will be passed the workspace name and workspace
+path as parameters.
+
+If a Lua function hook returns false, any other registered hooks in the list
+will be skipped. Furthermore, if the hook is an open_pre hook and returns
+false, the directory will not be changed and any registered post-open hooks
+will not be run.
+
+add~
+    run hooks after adding a workspace
+
+remove~
+    run hooks after removing a workspace
+
+open~
+    run hooks after changing directory when opening a workspace
+
+open_pre~
+    run hooks before changing directory when opening a workspace
+
+==============================================================================
+API                                                           *workspaces-api*
+
+local workspaces = require("workspaces")
+
+workspaces.setup(opts: {table})
+    Setup custom configuration and user commands. The details of opts are
+    documented in |workspaces-configuration|
+
+workspaces.add(path: {string}, name: {string})
+    Add a workspace with the given name and path. If name or path are nil, the
+    current directory will be used to set the missing parameter.
+
+workspaces.add_dir(path: {string})
+    Add a directory with the given path. Register all its subfolders as
+    workspaces.
+
+workspaces.remove(name: {string})
+    Remove a workspace with the given name.
+
+workspaces.remove_dir(path: {string})
+    Remove a directory and all its associated workspaces.
+
+workspaces.list()
+    Print all workspaces to the commandline.
+
+workspaces.list_dirs()
+    Print all directories to the commandline.
+
+workspaces.open(name: {string}|{nil})
+    Open a workspace with the given name. If name is nil, vim.ui.select() will be
+    used as a selection interface for opening a workspace.
+
+workspaces.get(): {table}
+    Returns a list of all workspaces in { name: {string}, path: {string},
+                                          last_opened: {string} }
+    pairs.
+
+workspaces.name(): {string}|{nil}
+    Returns the name of the current workspace or nil if no workspace is open.
+
+workspaces.path(): {string}|{nil}
+    Returns the path of the current workspace or nil if no workspace is open.
+
+workspaces.sync_dirs()
+   Synchronize all workspaces that are subfolders of registered directories.
+
+workspaces.get_custom(name: {string}): {string}|{nil}
+   Returns custom string data associated with a workspace.
+
+workspaces.set_custom(name: {string}, data: {string})
+   Sets custom string data associated with a workspace.
+
+==============================================================================
+TELESCOPE                                               *workspaces-telescope*
+
+workspaces.nvim is bundled with a telescope picker extension. To enable, add
+the following to your config >
+
+    telescope.load_extension("workspaces")
+<
+The picker will list all workspaces. `<cr>` will open the selected workspace,
+running any registered hooks. `<c-t>` will open the selected workspace in a new tab.
+
+To keep nvim in insert mode (for example, when
+chaining multiple telescope pickers), add the following to your telescope
+setup function. You can also specify the highlight group used for the path in
+the picker. >
+
+    require("telescope").setup({
+      extensions = {
+        workspaces = {
+          -- keep insert mode after selection in the picker, default is false
+          keep_insert = true,
+          -- highlight group used for the path in the picker, default is
+          "String"
+          path_hl = "String",
+        }
+      }
+    })
+<
+After registration, the picker is available via |:Telescope workspaces|.
+
+==============================================================================
+EXAMPLES                                                 *workspaces-examples*
+
+Remember that more than one hook is allowed, so these may be combined in
+creative ways! Hooks may also be registered after adding and removing
+workspaces, not only after opening a workspace.
+
+Change directory to the workspace and run fzf. >
+
+    require("workspaces").setup({
+        hooks = {
+            open = "FZF",
+        }
+    })
+<
+Open nvim-tree. >
+
+    require("workspaces").setup({
+        hooks = {
+            open = "NvimTreeOpen",
+        }
+    })
+<
+Load any saved sessions using natecraddock/sessions.nvim >
+
+    require("workspaces").setup({
+        hooks = {
+            open = function()
+              require("sessions").load(nil, { silent = true })
+            end,
+        }
+    })
+<
+Open nvim-tree and a telescope file picker. >
+
+    require("workspaces").setup({
+        hooks = {
+            open = { "NvimTreeOpen", "Telescope find_files" },
+        }
+    })
+<
+vim:tw=78:ts=8:ft=help:norl:

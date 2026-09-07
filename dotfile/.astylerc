@@ -1,0 +1,11 @@
+--style=allman
+--align-pointer=name
+--align-reference=name
+--indent=spaces=4
+--indent-cases
+--indent-col1-comments
+--unpad-paren
+--pad-oper
+--pad-header
+--suffix=none
+--max-code-length=200

@@ -1,0 +1,22 @@
+想让 rofi 搜索时自动显示这个程序
+
+rofi 默认是通过 .desktop 启动项来显示程序的。
+你可以为它创建一个 .desktop 文件：
+nvim ~/.local/share/applications/myapp.desktop
+填入内容
+
+[Desktop Entry]
+Name=MyApp
+Exec=/home/你的用户名/Downloads/myapp/bin/myapp
+Icon=/home/你的用户名/Downloads/myapp/icon.png
+Type=Application
+Categories=Utility;
+Terminal=false
+
+如果程序要终端运行
+改为
+Terminal=true
+
+更新rofi缓存
+
+update-desktop-database ~/.local/share/applications/

@@ -1,0 +1,257 @@
+" put it at the very start.
+set nocompatible
+" 将 leader 键设置为 空格
+let mapleader = " "
+" Standard plugins
+" Many people are surprised by the fact that Vim comes with a handful of standard plugins.
+" Some get loaded by default (:e $VIMRUNTIME/plugin) and some are not (:e $VIMRUNTIME/pack/dist/opt).
+" Read :h pack-add on how to source the latter.
+" Most of the plugins that get loaded by default will never get used, though. Disable them as you see fit.
+" They will still be shown as sourced (:scriptnames),
+" but only the first lines actually get read before Vim bails out.
+" No further code (mappings, commands, logic) will be processed.
+" Disable it using below
+let g:loaded_2html_plugin     = 1
+let g:loaded_getscriptPlugin  = 1
+let g:loaded_gzip             = 1
+let g:loaded_logipat          = 1
+let g:loaded_matchparen       = 1
+let g:loaded_netrw            = 1
+let g:loaded_netrwPlugin      = 1
+let g:loaded_rrhelper         = 1
+let g:loaded_spellfile_plugin = 1
+let g:loaded_tarPlugin        = 1
+let g:loaded_vimballPlugin    = 1
+let g:loaded_zipPlugin        = 1
+
+syntax on
+filetype on
+filetype indent plugin on
+set nu
+set rnu
+" 高亮搜索的单词
+set hlsearch
+
+" 输入搜索内容时，立即跳转到第一个匹配的结果
+set incsearch
+
+" 搜索时不忽略大小写
+set noignorecase
+
+" 打开的文件被其他软件修改了，自动更新
+set autoread
+
+" 退出vim自动保存没有保存的buffer
+set autowriteall
+
+"退出vim后内容显示在终端
+" set t_ti= t_te=
+
+set mouse -=a
+set title
+
+" 禁用闪烁提示或声音
+set novisualbell
+set noerrorbells
+set t_vb=
+
+" For regular expressions turn magic on
+set magic
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+
+set whichwrap+=<,>,h,l
+" 光标停留在括号上时高亮匹配的另一边
+set showmatch
+" 高亮显示的时间（以 1/10 秒为单位，2 = 0.2
+set matchtime=20
+
+" 状态栏显示当前的行号列号
+" set ruler
+
+" 在状态栏显示正在输入的命令
+set showcmd
+
+" 左下角不显示当前vim模式
+set noshowmode
+
+" 设置Tab键的宽度[等同的空格个数]
+set tabstop=4
+" 每一次缩进对应的空格数
+set shiftwidth=4
+" 按退格键时可以一次删掉 4 个空格
+set softtabstop=4
+" insert tabs on the start of a line according to shiftwidth, not tabstop 按退格键时可以一次删掉 4 个空格
+set smarttab
+" 将Tab自动转化成空格[需要输入真正的Tab键时，使用 Ctrl+V + Tab]
+set expandtab
+" 缩进时，取整 use multiple of shiftwidth when indenting with '<' and '>'
+set shiftround
+
+" 高亮显示当前行
+" set cursorline
+
+" 设置新文件的编码为 UTF-8
+set encoding=utf-8
+" 自动判断编码时，依次尝试以下编码：
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+" 如遇Unicode值大于255的文本，不必等到空格再折行
+set formatoptions+=m
+" 合并两行中文时，不在中间加空格
+set formatoptions+=B
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc,*.class,*.rtf,*.d
+" 设置 tags 文件路径
+set tags=./tags,tags;
+" 启用命令补全菜单
+set wildmenu
+set wildmode=longest:full,full
+" 启用补全来源，包含文件、缓冲区和 tags
+set complete=.,w,b,u,t
+" 启用内置补全的增强功能
+set completeopt=menu,menuone,noinsert,noselect
+""
+" 在终端中使用 vim 时，处理在插入模式下粘贴内容时的自动缩进问题。
+" 开启 set paste 后，vim 会关闭自动缩进和自动补全的特性，
+" 使得从外部粘贴的文本不会因为自动缩进而出现不必要的格式问题
+" paste模式会禁用所有插入模式binding，会干扰其他插件，所以用快捷键toggle
+"set paste
+set pastetoggle=<F3>
+""
+set confirm
+set autoindent
+
+" Show “invisible” characters
+"set lcs=tab:▸\ ,trail:·,nbsp:_
+set lcs=tab:»\ ,nbsp:_
+set list
+
+set history =300
+set nowrapscan  "搜索字符跳转时不循环
+set nowrap      "不自动换行
+set noautochdir
+set shortmess =aIt  " Don’t show the intro message when starting Vim
+set noswapfile  "不要自动生成各种备份文件
+set nobackup
+" 默认不显示status栏，F2切换
+set laststatus=2
+set statusline+=\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-13.(%l\/%L:%c%)\ %P
+set showtabline =0
+set scrolloff =1
+set sidescrolloff=15
+set sidescroll=1
+set splitright
+set splitbelow
+" timeoutlen：控制映射按键序列的超时时间，影响普通的按键映射。
+" ttimeoutlen：控制终端按键（如 Esc）的超时时间，影响终端输入的反应时间。
+set timeout
+set timeoutlen=3000
+set ttimeout
+set ttimeoutlen=10
+
+set clipboard=unnamed
+
+" Disable error bells
+set noerrorbells
+
+" Don’t reset cursor to start of line when moving around.
+set nostartofline
+
+" 不解析运行vim脚本行,类似 vim: tw=78 ts=8 sw=4 sts=4 et ft=help
+" 系统更安全
+set modelines=0
+set nomodeline
+"
+"效果：
+"    默认行为（set nohidden）：如果你切换到另一个文件（使用 :e 命令打开新文件），
+"    Vim 会要求你保存当前文件（如果它有未保存的更改）。
+"    如果你没有保存，它会提示你是否要保存文件或丢弃更改。
+"    启用 set hidden：当你切换到另一个文件时，Vim 不会要求你保存当前文件的更改。
+"    你可以在多个文件之间切换，而无需每次都保存。当前文件的更改会被暂时隐藏，
+"    但文件内容不会丢失，直到你显式保存或退出 Vim。
+set hidden
+
+""
+"不同模式光标形状
+" insert mode
+let &t_SI = "\<Esc>[6 q"
+" replace mode
+let &t_SR = "\<Esc>[4 q"
+" normal mode
+let &t_EI = "\<Esc>[2 q"
+
+"左边的mark列始终显示
+set signcolumn=no
+
+"vim-stay插件根据此设置的参数来保存对应的东西，比如光标位置
+"viewoptions 选项决定了 :mkview 和 :loadview 命令保存和恢复哪些编辑器状态。
+"各选项含义如下：
+"
+"    cursor：保存并恢复光标位置。
+"    folds：保存并恢复折叠状态。
+"    slash：在 Windows 上仍使用 / 作为路径分隔符（适用于跨平台共享 view 文件）。
+"    unix：在 Windows 上保存时使用 Unix 格式（LF 作为换行符）。
+"
+" slash 和 unix 选项可以减少 Windows 和 Unix 系统间的不兼容问题。
+set viewoptions=cursor,folds,slash,unix
+
+" Delete comment character when joining commented lines.
+set formatoptions+=j
+
+" 空白行首波浪改为空格"
+set fillchars=eob:\ 
+
+" '200	保留最近使用过的 200 个文件（用于 :oldfiles）
+" <100	保存最多 100 个 buffer 内容（用于恢复时的 buffer 状态）
+" s50	保存最多 5000KB(5M) 的寄存器内容（如 yank 内容）
+set viminfo='10,<100,s5000,h
+
+set termguicolors
+set t_Co=256
+set background =dark
+colorscheme gruvbox
+" 行尾的空格显示背景色比如红色
+hi TrailingSpaces ctermbg=red guibg=#d33682
+match TrailingSpaces /\s\+$/
+
+"---------------------------------------------------autocmd
+"光标保持不动超过一段时间时，自动保存所有修改的文件。
+autocmd CursorHold,CursorHoldI * silent! wall
+
+" 加载所有在~/.vim/pack/plugins/opt/文件夹里的插件（如果有）
+packloadall
+
+" 加载各个插件配置
+if isdirectory(expand('~/.vim/config_plugin/'))
+  for file in split(glob('~/.vim/config_plugin/*.vim'), '\n')
+    execute 'source ' . file
+  endfor
+endif
+"---------------------------------------------------keybinding
+"
+" Though actual pressing Alt,but here use <Esc> as alt
+nnoremap <Esc>k :resize +3<CR>
+nnoremap <Esc>j :resize -3<CR>
+nnoremap <Esc>h :vertical resize -3<CR>
+nnoremap <Esc>l :vertical resize +3<CR>
+
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+
+nnoremap <leader>\| :vsplit<CR>
+nnoremap <leader>- :split<CR>
+
+nnoremap <space> :w \| noh \| echo ''<CR>
+
+nnoremap <F2> :NERDTreeToggle<CR>
+nnoremap <leader>u :UndotreeToggle<CR>
+
+inoremap jj <Esc>:w<CR>

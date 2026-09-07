@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=waterfox
+Exec=/home/microvee/Downloads/waterfox/waterfox-bin
+Icon=
+Type=Application
+Categories=Utility;
+Terminal=false
