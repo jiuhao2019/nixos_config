@@ -61,10 +61,8 @@
 (setq org-export-preserve-breaks t)
 
 ;; 当 TODO 状态切换为 DONE 时，自动记录完成时间
-(setq org-log-done 'time)
-
-;; 日志被放入 LOGBOOK 抽屉，不会让正文显得杂乱
-(setq org-log-into-drawer t)
+(setq org-log-done nil)
+(setq org-log-into-drawer nil)
 
 ;; 用 TAB 折叠/展开标题时，Drawer 会保持隐藏
 (setq org-cycle-hide-drawer-startup t)
