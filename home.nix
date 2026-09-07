@@ -86,6 +86,7 @@
     gruvbox-dark-gtk
     gruvbox-dark-icons-gtk
 	qt6Packages.qt6ct
+	python3
   ];
   gtk = {
     enable = true;
