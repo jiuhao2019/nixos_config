@@ -73,75 +73,52 @@ end
 -- {{{ ----------------------------------------------------------------Keys
 
 globalkeys = gears.table.join(
-	-- ---------------
-	-- 保持比例加大窗口
-	-- ---------------
-	awful.key({ modkey, "Shift" }, "i", function()
-		local c = client.focus
-		if c then
-			resize_keep_current_ratio(c, 30)
-		end
-	end, { description = "grow window keep ratio", group = "client" }),
-
-	-- ---------------
-	-- 保持比例减小窗口
-	-- ---------------
-	awful.key({ modkey, "Control" }, "i", function()
-		local c = client.focus
-		if c then
-			resize_keep_current_ratio(c, -30)
-		end
-	end, { description = "shrink window keep ratio", group = "client" }),
-
-	-- 增大右边框方向
-	awful.key({ modkey, "Shift" }, "l", function()
-		if client.focus then
-			resize_right(client.focus, 30)
-		end
-	end),
-	-- 缩小右边框方向
-	awful.key({ modkey, "Control" }, "l", function()
-		if client.focus then
-			resize_right(client.focus, -30)
-		end
-	end),
-	-- 增大下边框方向
-	awful.key({ modkey, "Shift" }, "j", function()
-		if client.focus then
-			resize_bottom(client.focus, 30)
-		end
-	end),
-	-- 减小下边框方向
-	awful.key({ modkey, "Control" }, "j", function()
-		if client.focus then
-			resize_bottom(client.focus, -30)
-		end
-	end),
-	-- 增大左边框方向
+	-- 吸附左屏幕
 	awful.key({ modkey, "Shift" }, "h", function()
-		if client.focus then
-			resize_left(client.focus, 30)
+		local c = client.focus
+		if c then
+			local s = c.screen
+			c:geometry({
+				x = s.workarea.x,
+				y = c.y,
+			})
 		end
 	end),
-	-- 减小左边框方向
-	awful.key({ modkey, "Control" }, "h", function()
-		if client.focus then
-			resize_left(client.focus, -30)
-		end
-	end),
-	-- 增大上边框方向
-	awful.key({ modkey, "Shift" }, "k", function()
-		if client.focus then
-			resize_top(client.focus, 30)
-		end
-	end),
-	-- 减小上边框方向
-	awful.key({ modkey, "Control" }, "k", function()
-		if client.focus then
-			resize_top(client.focus, -30)
-		end
-	end),
-	-- ---------------
+	-- 吸附右屏幕
+    awful.key({ modkey, "Shift" }, "l", function()
+        local c = client.focus
+        if c then
+            local wa = c.screen.workarea
+            c:geometry({
+                x = wa.x + wa.width - c.width,
+                y = c.y,
+            })
+        end
+    end),
+
+	-- 吸附上屏幕
+    awful.key({ modkey, "Shift" }, "k", function()
+        local c = client.focus
+        if c then
+            local wa = c.screen.workarea
+            c:geometry({
+                x = c.x,
+                y = wa.y,
+            })
+        end
+    end),
+
+	-- 吸附下屏幕
+    awful.key({ modkey, "Shift" }, "j", function()
+        local c = client.focus
+        if c then
+            local wa = c.screen.workarea
+            c:geometry({
+                x = c.x,
+                y = wa.y + wa.height - c.height,
+            })
+        end
+    end),
 	-- Show/hide wibox,即隐藏/显示顶部和底部的bar
 	-- ---------------
 	awful.key({ modkey }, "b", function()
@@ -158,22 +135,14 @@ globalkeys = gears.table.join(
 		-- awful.spawn.with_shell("/opt/v2rayn-bin/v2rayN")
 		-- awful.spawn.with_shell("/opt/mihomo-party/mihomo-party")
 		-- awful.spawn.with_shell("clash-verge")
-        awful.spawn.with_shell("sudo env WEBKIT_DISABLE_DMABUF_RENDERER=1 $(which clash-verge)")
-	end),
-
-	awful.key({ modkey }, "e", function()
-		awful.spawn.with_shell("emacs")
-	end),
-
-	awful.key({ modkey }, "c", function()
-		awful.spawn.with_shell("chromium")
+		awful.spawn.with_shell("sudo env WEBKIT_DISABLE_DMABUF_RENDERER=1 $(which clash-verge)")
 	end),
 
 	awful.key({ modkey }, "Return", function()
 		awful.spawn.with_shell("wezterm start -- tmux")
 	end),
 
-	awful.key({ modkey }, "d", function()
+	awful.key({ modkey }, "r", function()
 		awful.spawn.with_shell("rofi -show drun")
 	end),
 
@@ -228,10 +197,6 @@ globalkeys = gears.table.join(
 			c:raise()
 		end
 	end)
-	-- 随机选择一张壁纸
-	-- awful.key({ modkey }, "w", function()
-	-- 	awful.spawn.with_shell("feh --randomize --bg-fill ~/wallpapers/*")
-	-- end),
 )
 -- =========================
 -- ★ 在这里添加 tag 切换
@@ -324,32 +289,9 @@ clientbuttons = gears.table.join(
 )
 clientkeys = gears.table.join(
 	-- -----------------------------------
-	--                   居中窗口,大/小切换
-	-- ----------------------------------
-awful.key({ modkey, "Shift" }, "z", function(c)
-    c._large_window = not c._large_window
-
-    if c._large_window then
-        c.width = 1300
-        c.height = 900
-    else
-        c.width = 1100
-        c.height = 800
-    end
-
-    awful.placement.centered(c, {
-        honor_workarea = true,
-        honor_padding = true,
-    })
-    c:raise()
-end, {
-    description = "toggle window size",
-    group = "client",
-}),
-	-- -----------------------------------
 	--                   toggle 全屏
 	-- ----------------------------------
-	awful.key({ modkey  }, "f", function(c)
+	awful.key({ modkey }, "f", function(c)
 		c.fullscreen = not c.fullscreen
 		c:raise()
 	end, { description = "toggle fullscreen", group = "client" }),
