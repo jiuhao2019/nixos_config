@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 { config, lib, pkgs, inputs, ... }:
 
 {
@@ -60,9 +56,7 @@
   time.timeZone = "Asia/Shanghai";
 
   networking.proxy.default = "http://127.0.0.1:7897";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
     windowManager.awesome.enable = true;
@@ -72,7 +66,6 @@
     };
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
    users.users.microvee = {
      isNormalUser = true;
      shell = pkgs.fish;
@@ -105,13 +98,6 @@
     # serif = [ "LXGW WenKai" ];
   };
 
-  # nixpkgs.config.allowUnfree = true;
-  #nixpkgs.config.allowUnfreePredicate = pkg:
-  #  builtins.elem (lib.getName pkg) [
-  #    "clion"
-  #  ];
-  # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
    environment.systemPackages = with pkgs; [
      cmake
 	 ninja
@@ -136,33 +122,31 @@
      fd
      ripgrep
      p7zip
-     ibus
      xclip
 	 meld
    ];
 
   i18n = {
     defaultLocale = "en_US.UTF-8";
-  
+
     supportedLocales = [
       "en_US.UTF-8/UTF-8"
       "zh_CN.UTF-8/UTF-8"
     ];
     inputMethod = {
       enable = true;
-      type = "ibus";
+      type = "fcitx5";
 
-      ibus.engines = [
-        pkgs.ibus-engines.rime
+      fcitx5.addons = with pkgs; [
+        rime-data
+        fcitx5-gtk
+        fcitx5-nord
+        fcitx5-rime
       ];
     };
   };
 
   environment.variables = {
-    GTK_IM_MODULE = "ibus";
-    QT_IM_MODULE = "ibus";
-    XMODIFIERS = "@im=ibus";
-
     EDITOR = "nvim";
     VISUAL = "nvim";
   };
@@ -179,12 +163,6 @@
     }
   ];
 
-  # List services that you want to enable:
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
   networking.firewall.enable = false;
 
   programs.fish.enable = true;
@@ -220,29 +198,7 @@
   services.udev.extraRules = ''
     ATTR{idVendor}=="1366", MODE="0666"
   '';
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
-
-  # This option defines the first version of NixOS you have installed on this particular machine,
-  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
-  #
-  # Most users should NEVER change this value after the initial install, for any reason,
-  # even if you've upgraded your system to a new NixOS release.
-  #
-  # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
-  # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
-  # to actually do that.
-  #
-  # This value being lower than the current NixOS release does NOT mean your system is
-  # out of date, out of support, or vulnerable.
-  #
-  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
-  # and migrated your data accordingly.
-  #
-  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
+  programs.dconf.enable = true;
   system.stateVersion = "26.05"; # Did you read the comment?
-
 }
 
