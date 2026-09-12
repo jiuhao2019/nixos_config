@@ -7,7 +7,7 @@ require("im_select").setup({
 	--               "1" for Fcitx
 	--               "xkb:us::eng" for ibus
 	-- You can use `im-select` or `fcitx5-remote -n` to get the IM's name
-	default_im_select = "xkb:us::eng",
+	default_im_select = "keyboard-us",
 
 	-- Can be binary's name, binary's full path, or a table, e.g. 'im-select',
 	-- '/usr/local/bin/im-select' for binary without extra arguments,
@@ -15,7 +15,7 @@ require("im_select").setup({
 	-- For Windows/WSL, default: "im-select.exe"
 	-- For macOS, default: "macism"
 	-- For Linux, default: "fcitx5-remote" or "fcitx-remote" or "ibus"
-	default_command = { "ibus", "engine" },
+	default_command = { "fcitx5-remote", "engine" },
 
 	-- Restore the default input method state when the following events are triggered
 	-- "VimEnter" and "FocusGained" were removed for causing problems, add it by your needs
