@@ -13,6 +13,7 @@
   home.file.".astylerc".source = ./dotfile/.astylerc;
   home.file.".local/bin/advcp".source = ./advcp;
   home.file.".local/bin/advmv".source = ./advmv;
+  home.file.".local/share/fcitx5/themes".source = ./fcitx5/themes;
 
   xdg.configFile."awesome".source = ./.config/awesome;
   xdg.configFile."nvim".source = ./.config/nvim;
