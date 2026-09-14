@@ -37,8 +37,8 @@ if test -d "$HOME/.local/bin"
 end
 
 # add J-Link to PATH if it exists
-if test -d "$HOME/Downloads/opt/JLink_Linux_V640_x86_64"
-    set PATH "$HOME/Downloads/opt/JLink_Linux_V640_x86_64" $PATH
+if test -d "$HOME/Downloads/opt/JLink_Linux_V786_x86_64"
+    set PATH "$HOME/Downloads/opt/JLink_Linux_V786_x86_64" $PATH
 end
 # set -Ux PATH $PATH ~/Downloads/opt/JLink_Linux_V786_x86_64/
 
