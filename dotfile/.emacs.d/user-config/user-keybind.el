@@ -74,7 +74,7 @@
 (defhydra hydra-org-block (:color blue :hint nil )
   "
 ☞ org-block
-[_i_]insert
+[_i_]insert_c_src  [_I_]insert_select
   "
   ("i"   my-org-region-to-c-src)
   ("I"   org-insert-structure-template)
