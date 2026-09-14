@@ -72,7 +72,7 @@
     enable = true;
     package = pkgs.bibata-cursors;
     name = "Bibata-Modern-Amber";
-    size = 13;
+    size = 11;
     x11.enable = true;
     gtk.enable = true;
   };
