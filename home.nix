@@ -24,8 +24,9 @@
   xdg.configFile."rofi".source = ./.config/rofi;
   xdg.configFile."dunst".source = ./.config/dunst;
   xdg.configFile."lf".source = ./.config/lf;
+
   home.packages = with pkgs;[
-	mermaid-cli
+    mermaid-cli
     plantuml
     graphviz
     prettier
@@ -39,44 +40,67 @@
     meld
     clang
     clang-tools
-    fortune
     emacs
     btop  
-    fastfetch
     neovim
-    wezterm
     picom
     rofi
     dunst
     gruvbox-dark-gtk
     gruvbox-dark-icons-gtk
     python3
+    ungoogled-chromium
+    cmake
+    ninja
+    gcc-arm-embedded
+    usbutils
+    fastfetch
+    nh
+    open-vm-tools
+    eza 
+    lf
+    wezterm
+    tmux
+    unzip
+    fd
+    ripgrep
+    xclip
+    tree
+    pkgs.bibata-cursors
   ];
+  home.pointerCursor = {
+    enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Amber";
+    size = 13;
+    x11.enable = true;
+    gtk.enable = true;
+  };
   gtk = {
     enable = true;
-
     theme = {
       name = "gruvbox-dark";
       package = pkgs.gruvbox-dark-gtk;
     };
-
     iconTheme = {
       name = "oomox-gruvbox-dark";
       package = pkgs.gruvbox-dark-icons-gtk;
     };
   };
-
   programs.git = {
     enable = true;
-  
     settings = {
       user = {
         name = "microvee";
         email = "815514981@qq.com";
       };
-  
       init.defaultBranch = "main";
     };
   };
+  programs.zoxide = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
   home.stateVersion = "26.05";
 }

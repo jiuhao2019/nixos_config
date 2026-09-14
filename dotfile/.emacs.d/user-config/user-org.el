@@ -1,8 +1,5 @@
 ;; -*- lexical-binding: t; -*-
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                                           org
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'org)
 ;; capture目录
 (defvar my-capture-directory "~/Downloads/note/capture-file/")
@@ -111,6 +108,14 @@
 ;; 右边提示有括号，符号不用下划线
 (set-face-attribute 'org-ellipsis nil :underline nil)
 
+;; link打开用tab而不是默认的split
+(defun my-org-open-at-point-in-tab (orig-fun &rest args)
+  (tab-new)
+  (apply orig-fun args)
+  (delete-other-windows))
+(advice-add 'org-open-at-point :around #'my-org-open-at-point-in-tab)
+;;(global-set-key (kbd "C-c o") #'org-open-at-point)
+
 ;; 所有 #+begin_src xxx 和 #+end_src 本身字符都会被隐藏
 (defun my/org-hide-block-delimiters ()
   "Hide #+begin_xxx / #+end_xxx lines in org-mode."
@@ -143,12 +148,12 @@
 ;; ;;;;;;;;;;;;;;;;;
 ;; 设置tag背景和前景色
 ;; ;;;;;;;;;;;;;;;;;
-;; (custom-set-faces
-;;  '(org-tag
-;;    ((t (:foreground "white"
-;; 		    :background "#5f87ff"
-;; 		    :weight bold
-;; 		    :height 0.8)))))
+ (custom-set-faces
+  '(org-tag
+    ((t (:foreground "white"
+ 		    :background "#5f87ff"
+ 		    :weight bold
+ 		    :height 0.8)))))
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Add frame borders and window dividers
@@ -182,12 +187,10 @@
 
 (setq org-refile-use-outline-path 'file)
 (setq org-outline-path-complete-in-steps nil)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                                           org-bullets
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
+(require 'org-bullets)
+(setq org-bullets-bullet-list '("⓿" "❶" "❷" "❸" "❹" "❺" "❻" "❼" "❽" "❾"))
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 ;; Org Agenda files
 ;; ============================================================
 ;; 只有这里的文件参与 Agenda
@@ -212,7 +215,8 @@
 
 (defcustom my-org-directories
   '("~/Downloads/note/capture-file/"
-    "~/Downloads/note/org-files/")
+    "~/Downloads/note/org-files/"
+    "~/Downloads/note/org-category/")
   "Directories containing Org files used as refile targets."
   :type '(repeat directory)
   :group 'org)
@@ -250,17 +254,9 @@
 (setq org-refile-use-outline-path 'file)
 (setq org-outline-path-complete-in-steps nil)
 
- ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;                      slice Image display
-; 将插入的image显示为切割模式，以规避滚动时大图片跳闪
- ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'org-sliced-images)
 (org-sliced-images-mode 1)
 
-
- ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;                                 valign,含中文的表格能对齐
- ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'valign)
 (setq valign-max-table-size 10000)  ;; 表格内容超过字节,自动跳过处理表格
 (setq valign-fancy-bar t)         ;; 竖线全高，与文本对齐
@@ -269,25 +265,5 @@
 (setq valign-resize-separator t)
 (setq valign-autorefresh-rate 1.5)  ;; 刷新
 (add-hook 'org-mode-hook #'valign-mode)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                             end of org
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                             org-super links
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(require 'org-super-links)
-(setq org-super-links-related-into-drawer t)
-(setq org-super-links-backlink-drawer "BACKLINKS")
-
-(require 'imenu-list)
-(setq imenu-list-focus-after-activation t)
-(setq imenu-list-auto-resize t)
-(setq imenu-list-after-jump-hook nil)
-(add-hook 'imenu-list-after-jump-hook #'recenter-top-bottom)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                             end of org-node
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (provide 'user-org)

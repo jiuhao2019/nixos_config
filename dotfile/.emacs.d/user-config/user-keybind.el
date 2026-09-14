@@ -65,17 +65,11 @@
 (defhydra hydra-org-link (:color blue :hint nil )
   "
 ☞ org-link
-[_i_]insert-inline [_o_]open [_t_]toggle-display  [_I_]insert-at-title
-[_d_]delete
+[_o_]open [_t_]toggle-display
   "
   ( "o"   org-open-at-point )
   ( "t"   org-toggle-link-display )
-  ( "i"   org-super-links-quick-insert-inline-link)
-  ( "I"   org-super-links-link)
-  ( "d"   org-super-links-delete-link)
   ( "q"   keyboard-quit :color blue))
-;; i 当前光标位置插入link，且被插入的title也会增加此位置所属title的link
-;; I 当前title插入link，且被插入的title也会增加此title的link
 
 (defhydra hydra-org-block (:color blue :hint nil )
   "
@@ -154,19 +148,6 @@
   ( "x"   tab-close  )
   ( "q"   keyboard-quit :color blue))
 
-(defhydra hydra-win (:color pink :hint nil )
-  "
-☞ window
-[_j_]dec-height [_k_]inc-height [_h_]inc-width  [_l_]dec-width
-[_x_]delete
-  "
-  ("x"   evil-window-delete)
-  ("j"   evil-window-increase-height)
-  ("k"   evil-window-decrease-height)
-  ("h"   evil-window-increase-width)
-  ("l"   evil-window-decrease-width)
-  ("q"   keyboard-quit :color blue))
-
 (defhydra hydra-file (:color blue :hint nil )
   "
 ☞ file
@@ -180,10 +161,9 @@
 (defhydra hydra-motion (:color blue :hint nil )
   "
 ☞ motion
-[_f_]find     [_F_]find-backward     [_j_]char
-[_t_]find-to  [_T_]find-backward-to  [_c_]pinyin
+[_f_]f     [_F_]F     [_j_]motion
+[_t_]t     [_T_]T
   "
-  ("c"   avy-goto-char)
   ("j"   avy-goto-char-timer)
   ("f"   evil-avy-find-char)
   ("F"   evil-avy-find-char-backward)
@@ -219,7 +199,6 @@
   "j" '(hydra-motion/body :wk "+motion")
   "o" '(hydra-org/body :wk "+org")
   "t" '(hydra-vim-tab-bar/body :wk "+tab")
-  "w" '(hydra-win/body :wk "+win")
   "x" '(hydra-misc/body :wk "+misc"))
 
 

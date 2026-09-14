@@ -26,7 +26,6 @@
 (require 'user-file-explorer)
 (require 'user-autocomplete)
 (require 'user-org)
-(require 'user-md)
 (require 'user-keybind)
 (require 'user-font)
 

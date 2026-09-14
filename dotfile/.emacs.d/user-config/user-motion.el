@@ -15,9 +15,6 @@
   (setq avy-timeout-seconds 0.3)
 
  (require 'evil-avy)
- (require 'ace-pinyin)
- (require 'pinyinlib)
- (ace-pinyin-global-mode +1)
 
 
 (provide 'user-motion)

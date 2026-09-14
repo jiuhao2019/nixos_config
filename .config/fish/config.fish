@@ -13,17 +13,16 @@ set -Ux VISUAL nvim
 set -gx PATH /usr/local/bin $PATH
 set -gx PATH /usr/bin $PATH
 
-abbr l "eza -1a"
-abbr ll "eza -1al"
 abbr ls "eza"
-abbr gs "git status"
-abbr gc "git commit"
-abbr gaa "git add ."
+abbr ll "eza -al --git"
+abbr lt "eza -T"
+abbr ld "eza -lD"
+
+function gs
+    git add . && git commit -m (date '+%Y-%m-%d %H:%M:%S') && git push
+end
 abbr gd "git diff"
-abbr gpl "git pull"
-abbr gps "git push"
-abbr gl "git log --oneline -10"
-abbr gL "git log"
+abbr gl "git pull"
 
 abbr rm "rm -irv"
 
@@ -38,8 +37,8 @@ if test -d "$HOME/.local/bin"
 end
 
 # add J-Link to PATH if it exists
-if test -d "$HOME/Downloads/opt/JLink_Linux_V786_x86_64"
-    set PATH "$HOME/Downloads/opt/JLink_Linux_V786_x86_64" $PATH
+if test -d "$HOME/Downloads/opt/JLink_Linux_V640_x86_64"
+    set PATH "$HOME/Downloads/opt/JLink_Linux_V640_x86_64" $PATH
 end
 # set -Ux PATH $PATH ~/Downloads/opt/JLink_Linux_V786_x86_64/
 
