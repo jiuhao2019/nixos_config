@@ -65,10 +65,11 @@
 (defhydra hydra-org-link (:color blue :hint nil )
   "
 ☞ org-link
-[_o_]open [_t_]toggle-display
+[_o_]open  [_t_]toggle-show  [_i_]insert
   "
   ( "o"   org-open-at-point )
   ( "t"   org-toggle-link-display )
+  ( "i"   org-insert-link )
   ( "q"   keyboard-quit :color blue))
 
 (defhydra hydra-org-block (:color blue :hint nil )
