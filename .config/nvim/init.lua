@@ -30,9 +30,6 @@ require("plugin.workspace")
 -- 记住文件关闭前光标位置
 require("plugin.remember")
 
--- startup ui
-require("plugin.alpha")
-
 -- breadcrum
 require("plugin.dropbar")
 
