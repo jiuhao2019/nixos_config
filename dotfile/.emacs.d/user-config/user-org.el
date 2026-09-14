@@ -266,4 +266,15 @@
 (setq valign-autorefresh-rate 1.5)  ;; 刷新
 (add-hook 'org-mode-hook #'valign-mode)
 
+(defun my-org-region-to-c-src (beg end)
+  "Wrap region in an Org C source block."
+  (interactive "r")
+  (let ((text (string-trim-right
+               (buffer-substring-no-properties beg end))))
+    (delete-region beg end)
+    (insert "#+begin_src C\n"
+            text
+            "\n#+end_src")))
+;;(global-set-key (kbd "C-c C-b c") #'my-org-region-to-c-src)
+
 (provide 'user-org)

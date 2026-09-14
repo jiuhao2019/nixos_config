@@ -76,7 +76,8 @@
 ☞ org-block
 [_i_]insert
   "
-  ("i"   org-insert-structure-template)
+  ("i"   my-org-region-to-c-src)
+  ("I"   org-insert-structure-template)
   ("q"   keyboard-quit :color blue))
 
 (defhydra hydra-org-note (:color blue :hint nil )
