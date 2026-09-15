@@ -41,7 +41,7 @@
 ;;                                  recent file
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar my-recent-files-file
-  (expand-file-name "~/Downloads/note/recent-files")
+  (expand-file-name "~/Downloads/emacs-recent-files")
   "File used to persist recent files.")
 (defvar my-recent-files-max 100
   "Maximum number of recent files to keep.")

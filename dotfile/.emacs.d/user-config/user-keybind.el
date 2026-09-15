@@ -153,13 +153,13 @@
 (defhydra hydra-file (:color blue :hint nil )
   "
 ☞ file
-[_d_]dired           [_e_]ranger  [_r_]rg  [_o_]old-file-oen
+[_d_]dired           [_e_]ranger  [_r_]rg  [_o_]old-file-open
 [_c_]old-file-clear
   "
   ("d"   dired)
   ("e"   ranger)
   ("r"   rgrep)
-  ("o"   my-recent-files-oen)
+  ("o"   my-recent-files-open)
   ("c"   my-recent-files-clear)
   ("q"   keyboard-quit :color blue))
 
