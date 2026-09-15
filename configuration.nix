@@ -127,6 +127,7 @@
   services.udev.extraRules = ''
     ATTR{idVendor}=="1366", MODE="0666"
   '';
+  services.getty.autologinUser = null;
 
   virtualisation.vmware.guest.enable = true;
   systemd.services.vmware-hgfs = {
