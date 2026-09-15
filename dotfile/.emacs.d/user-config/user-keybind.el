@@ -153,11 +153,14 @@
 (defhydra hydra-file (:color blue :hint nil )
   "
 ☞ file
-[_d_]dired [_e_]ranger [_r_]rg
+[_d_]dired           [_e_]ranger  [_r_]rg  [_o_]old-file-oen
+[_c_]old-file-clear
   "
   ("d"   dired)
   ("e"   ranger)
   ("r"   rgrep)
+  ("o"   my-recent-files-oen)
+  ("c"   my-recent-files-clear)
   ("q"   keyboard-quit :color blue))
 
 (defhydra hydra-motion (:color blue :hint nil )
