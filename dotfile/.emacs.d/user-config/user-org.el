@@ -277,4 +277,11 @@
             "\n#+end_src")))
 ;;(global-set-key (kbd "C-c C-b c") #'my-org-region-to-c-src)
 
+(defun my-html-to-org (file)
+  (interactive "fHTML file: ")
+  (let ((output (concat (file-name-sans-extension file) ".org")))
+    (call-process "pandoc" nil nil nil
+                  file "-f" "html" "-t" "org" "-o" output)
+    (find-file output)))
+
 (provide 'user-org)

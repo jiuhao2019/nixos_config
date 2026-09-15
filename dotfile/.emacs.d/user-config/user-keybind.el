@@ -113,12 +113,12 @@
   "
 ☞ org-misc
 [_i_]toggle-inline-img  [_o_]export-html [_n_]narrow-to-subtree
-[_l_]imenu-list
+[_h_]html-to-org
   "
   ( "i"   org-toggle-inline-images )
   ( "o"   org-html-export-to-html )
   ( "n"   org-toggle-narrow-to-subtree )
-  ( "l"   imenu-list-smart-toggle )
+  ( "h"   my-html-to-org )
   ( "q"   keyboard-quit :color blue))
 
 (defhydra hydra-org (:color blue :hint nil )

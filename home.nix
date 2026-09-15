@@ -29,6 +29,7 @@
     mermaid-cli
     plantuml
     graphviz
+	pandoc
     prettier
     stylua
     diffnav
