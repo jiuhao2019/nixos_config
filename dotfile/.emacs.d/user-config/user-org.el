@@ -189,7 +189,10 @@
 (setq org-outline-path-complete-in-steps nil)
 
 (require 'org-bullets)
-(setq org-bullets-bullet-list '("⓿" "❶" "❷" "❸" "❹" "❺" "❻" "❼" "❽" "❾"))
+;;(setq org-bullets-bullet-list '("⓿" "❶" "❷" "❸" "❹" "❺" "❻" "❼" "❽" "❾"))
+;;(setq org-bullets-bullet-list '("⁰" "¹" "²" "³" "⁴" "⁵" "⁶" "⁷" "⁸" "⁹"))
+(setq org-bullets-bullet-list '("₀" "₁" "₂" "₃" "₄" "₅" "₆" "₇" "₈" "₉"))
+;;(setq org-bullets-bullet-list '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧" "⑨"))
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 ;; Org Agenda files
 ;; ============================================================
