@@ -287,4 +287,20 @@
                   file "-f" "html" "-t" "org" "-o" output)
     (find-file output)))
 
+;; 自动切换输入法
+(defvar my-fcitx5-input-method-state 0)
+(defun my-evil-save-input-method ()
+  (setq my-fcitx5-input-method-state
+        (string-to-number
+         (string-trim
+          (shell-command-to-string "fcitx5-remote"))))
+  (call-process "fcitx5-remote" nil nil nil "-c"))
+(defun my-evil-restore-input-method ()
+  (when (= my-fcitx5-input-method-state 2)
+    (call-process "fcitx5-remote" nil nil nil "-o")))
+(add-hook 'evil-normal-state-entry-hook
+          #'my-evil-save-input-method)
+(add-hook 'evil-insert-state-entry-hook
+          #'my-evil-restore-input-method)
+
 (provide 'user-org)
