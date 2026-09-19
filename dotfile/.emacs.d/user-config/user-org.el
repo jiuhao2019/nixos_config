@@ -342,26 +342,23 @@
 ;;============================================================
 ;;           table最后按tab不自动新建新行
 ;;============================================================
-(defun my-org-table-at-last-field-p ()
-  "Return non-nil if point is in the last field of the current Org table."
+(defun my-org-table-last-field-p ()
+  "Return non-nil when point is in the last field of an Org table."
   (let ((end (org-table-end)))
     (save-excursion
-      (re-search-forward "|" end)
-      (if (looking-at "[ \t]*$")
-          (not (re-search-forward "|" end t))
-        nil))))
+      (end-of-line)
+      (forward-line 1)
+      (not (re-search-forward "^[ \t]*|" end t)))))
 
-(defun my-org-table-next-field-no-new-row ()
-  "Go to the next Org table field, but don't create a row at the end."
-  (interactive)
+(defun my-org-table-next-field-no-new-row (orig-fun &rest args)
+  "Prevent `org-table-next-field' from creating a row at table end."
   (if (and (org-at-table-p)
-           (my-org-table-at-last-field-p))
+           (my-org-table-last-field-p))
       (message "End of table")
-    (org-table-next-field)))
+    (apply orig-fun args)))
 
-(with-eval-after-load 'org-table
-  (define-key org-mode-map (kbd "TAB")
-              #'my-org-table-next-field-no-new-row))
+(advice-add 'org-table-next-field :around
+            #'my-org-table-next-field-no-new-row)
 ;;============================================================
 ;;                 end
 ;;============================================================
