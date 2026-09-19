@@ -56,7 +56,7 @@
 (defhydra hydra-org-table (:color blue :hint nil )
   "
 ☞ org-table
-[_c_]create  [_o_]export_table  [_v_]valign-toggle
+[_c_]create  [_o_]export-table  [_v_]valign-toggle
   "
   ("c"   org-table-create )
   ("o"   org-table-export-to-spreadsheet )
