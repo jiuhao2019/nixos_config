@@ -343,15 +343,24 @@
 ;;           table最后按tab不自动新建新行
 ;;============================================================
 (defun my-org-table-last-field-p ()
-  "Return non-nil when point is in the last field of an Org table."
+  "Return non-nil if point is in the last field of the Org table."
   (let ((end (org-table-end)))
     (save-excursion
-      (end-of-line)
-      (forward-line 1)
-      (not (re-search-forward "^[ \t]*|" end t)))))
+      ;; 检查当前字段后面是否还有字段分隔符。
+      (if (re-search-forward "|" (line-end-position) t)
+          nil
+        ;; 当前已经是本行最后一个字段。
+        ;; 再检查后面是否还有数据行。
+        (goto-char (line-end-position))
+        (if (re-search-forward
+             "^[ \t]*|\\([^-]\\)"
+             end
+             t)
+            nil
+          t)))))
 
 (defun my-org-table-next-field-no-new-row (orig-fun &rest args)
-  "Prevent `org-table-next-field' from creating a row at table end."
+  "Prevent `org-table-next-field' from adding a row at table end."
   (if (and (org-at-table-p)
            (my-org-table-last-field-p))
       (message "End of table")
