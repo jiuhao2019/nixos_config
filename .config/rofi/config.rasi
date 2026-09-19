@@ -1,0 +1,15 @@
+configuration {
+/*	modi: "window,run,ssh";*/
+	font: "FiraCode Nerd Font Mono 15";
+  timeout {
+      action: "kb-cancel";
+      delay:  0;
+  }
+  filebrowser {
+      directories-first: true;
+      sorting-method:    "name";
+  }
+  location: 6;
+}
+@theme "~/.config/rofi/gruvbox-dark-hard.rasi"
+

@@ -1,0 +1,308 @@
+# =========================##
+##  leader key -> win-key  ##
+##=========================# 
+
+set $mod Mod4
+
+gaps inner 3
+gaps outer 0
+
+#非bar栏里的其他区域字体
+
+
+# ======================================##
+##  非status-bar栏的区域的字体  ##
+##======================================# 
+
+font pango: FiraCode Nerd Font,Mono Medium 13
+
+# ============================##
+##  聚焦跟随鼠标光标  yes|no ##
+##============================# 
+focus_follows_mouse no
+
+# popup_during_fullscreen smart|ignore|leave_fullscreen
+popup_during_fullscreen smart
+
+#workspace_auto_back_and_forth yes|no
+workspace_auto_back_and_forth yes
+
+# hide_edge_borders none|vertical|horizontal|both|smart
+hide_edge_borders both
+
+# workspace_layout <default|stacking|tabbed>
+workspace_layout default
+
+#边框粗细
+# default_border normal|none|pixel
+# default_floating_border normal|none|pixel
+default_border pixel 1
+default_floating_border pixel 1
+
+# 浮动窗口切换前置键
+floating_modifier $mod
+floating_minimum_size 150 x 150
+floating_maximum_size -1 x -1
+
+# title_align left|center|right
+title_align left
+
+# =====================##
+##  开机随i3启动  ##
+##=====================# 
+
+exec --no-startup-id xset -dpms
+exec --no-startup-id xset s off
+exec --no-startup-id wezterm -e tmux
+exec_always --no-startup-id xsetroot -solid "#32302f"
+# 按键释放时执行
+bindsym Caps_Lock --release exec --no-startup-id dunstify "CapsLock: `xset q | sed -n 's/^.*Caps Lock:\s*\(\S*\).*$/\1/p'`" -t 1000 -r 6 -u low
+# ========================================##
+##  指定循环切换的几个workspace  ##
+##========================================# 
+bindsym $mod+Tab exec --no-startup-id ~/.config/i3/ws_cycle.fish next
+bindsym $mod+Shift+Tab exec --no-startup-id ~/.config/i3/ws_cycle.fish prev
+
+# =====================##
+##  按键切换focus  ##
+##=====================# 
+bindsym $mod+h focus left
+bindsym $mod+l focus right
+bindsym $mod+k focus up
+bindsym $mod+j focus down
+
+# =============================##
+##  鼠标滚轮change foucus  ##
+##=============================# 
+bindsym --whole-window $mod+button4 focus prev
+bindsym --whole-window $mod+button5 focus next
+
+#move focus
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+j move down
+
+# =========================##
+##  切换聚焦-> tile或float  ##
+##=========================# 
+bindsym $mod+i focus mode_toggle
+
+# =========================================##
+## 将workspace切换为tile或float            ##
+## 按住mod + 鼠标左键是拖动float workspace ##
+##         + 鼠标右健是缩放float workspace ##
+##=========================================# 
+bindsym $mod+Shift+i floating toggle
+
+bindsym $mod+Shift+r restart
+bindsym $mod+x kill
+
+
+# =================##
+##  kill total user  ##
+##=================# 
+
+# bindsym $mod+o exec --no-startup-id loginctl terminate-user $USER
+bindsym $mod+Shift+o exec pkill -KILL -u $USER
+
+# ========================##
+##  kill current session  ##
+##========================# 
+
+# bindsym $mod+Shift+o exec loginctl kill-session $XDG_SESSION_ID
+
+# ====================##
+##  only exit i3(wm)  ##
+##====================# 
+
+# bindsym $mod+o exec i3-msg exit
+
+# =======================##
+##  快捷键 -> 启动应用   ##
+##=======================# 
+bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+Return exec --no-startup-id wezterm -e tmux
+bindsym $mod+f exec --no-startup-id dex /usr/share/applications/doublecmd.desktop
+bindsym $mod+e exec --no-startup-id emacs
+bindsym $mod+v exec --no-startup-id dex /usr/share/applications/v2rayN-bin.desktop
+bindsym $mod+c exec --no-startup-id /usr/bin/chromium
+# ============================##
+##  在tile模式，改变窗口大小  ##
+##============================# 
+set $resize [h]width- [l]width+ [j]height- [k]height+
+mode "$resize" {
+    bindsym h resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym j resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+        bindsym Escape mode "default"
+}
+bindsym $mod+r mode "$resize"
+
+#设置容器title
+set $ws1 "󰼏 "
+set $ws2 "󰼐 󰨾"
+set $ws3 "󰼑 "
+set $ws4 "󰼒 "
+set $ws5 "󰼓 "
+set $ws6 "󰼔 "
+set $ws7 "󰼕 "
+set $ws8 "󰼖 "
+set $ws9 "󰼗 "
+# =========================================================================##
+##  打开app后自动聚焦其上,可以合一起，也可以分条写  (?i) -> 自动判断大小写 ##
+##==========================================================================# 
+# 方案1：手算坐标（最简单）
+# 假设屏幕 1920x1080：
+# 居中位置：
+# x = (1920 - 1200)/2 = 360
+# y = (1080 - 800)/2 = 140
+# 想往上移 10px：
+# y = 130
+# move position 360 px 130 px
+# for_window [class="(?i)vlc"] floating enable, layout default, focus,move position 100 px 10 px,resize set 900 750
+
+for_window [class="(?i)org.wezfurlong.wezterm"] floating enable
+for_window [class="(?i)org.wezfurlong.wezterm"] focus
+for_window [class="(?i)org.wezfurlong.wezterm"] move position 650 60
+for_window [class="(?i)org.wezfurlong.wezterm"] resize set 1000 800
+
+for_window [class="(?i)emacs"] floating enable
+for_window [class="(?i)emacs"] focus
+for_window [class="(?i)emacs"] move position 750 80
+for_window [class="(?i)emacs"] resize set 1000 800
+
+for_window [class="(?i)chromium"] floating enable
+for_window [class="(?i)chromium"] focus
+
+for_window [class="(?i)doublecmd"] floating enable
+for_window [class="(?i)doublecmd"] focus
+for_window [class="(?i)doublecmd"] move position center
+for_window [class="(?i)doublecmd"] resize set 1500 800
+
+for_window [class="(?i)marktext"] floating enable
+for_window [class="(?i)marktext"] focus
+
+for_window [class="(?i)libreoffice-writer"] floating enable
+for_window [class="(?i)libreoffice-writer"] focus
+for_window [class="(?i)libreoffice-writer"] move position center
+for_window [class="(?i)libreoffice-writer"] resize set 1200 800
+
+for_window [class="(?i)okular"] floating enable
+for_window [class="(?i)okular"] focus
+
+for_window [class="(?i)v2rayn"] floating enable
+for_window [class="(?i)v2rayn"] move position center
+for_window [class="(?i)v2rayn"] resize set 800 100
+for_window [class="(?i)v2rayn"] move to workspace $ws3
+for_window [class="(?i)v2rayn"] urgency_hint disable
+
+for_window [class="(?i)vlc"] floating enable
+for_window [class="(?i)vlc"] focus
+for_window [class="(?i)vlc"] move position center
+for_window [class="(?i)vlc"] resize set 1000 750
+
+for_window [class="(?i)strawberry"] floating enable
+for_window [class="(?i)strawberry"] focus
+
+for_window [class="(?i)qt5ct"] floating enable
+for_window [class="(?i)qt5ct"] focus
+for_window [class="(?i)qt5ct"] move position center
+for_window [class="(?i)qt5ct"] resize set 1000 750
+
+# =====================================================##
+##  打开app自动将其窗口放置在第x号容器  ##
+##  用assign 会触发urgency_hint,比如打开后不foucus,则tab变红色
+##  用move to则不会触发,根据需求选择
+##=====================================================# 
+assign [class="(?i)org.wezfurlong.wezterm"] $ws1
+assign [class="(?i)emacs"] $ws1
+assign [class="(?i)chromium"] $ws2
+assign [class="(?i)doublecmd"] $ws2
+assign [class="(?i)marktext"] $ws2
+assign [class="(?i)libreoffice-writer"] $ws6
+assign [class="(?i)okular"] $ws2
+assign [class="(?i)vlc"] $ws4
+assign [class="(?i)strawberry"] $ws4
+assign [class="(?i)qt5ct"] $ws5
+
+
+#切换到第x号容器
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+
+#将当前窗口移动到其他容器
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+
+
+#child_border:client.focused    <-  border color
+
+# class                 border  bground text    indicator child_border
+client.focused          #83a598 #83a598 #83a598 #83a598   #83a598
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #32302f #32302f #BFBFBF #32302f   #32302f
+client.urgent           #44475A #fb4934 #F8F8F2 #fb4934   #fb4934
+client.placeholder      #32302f #32302f #F8F8F2 #32302f   #32302f
+client.background       #F8F8F2
+
+
+bar {
+    i3bar_command i3bar
+    height 26
+
+    # bar栏里的区域字体
+    font pango: FiraCode Nerd Font,Mono Medium 16
+
+    status_command i3blocks -c ~/.config/i3/i3blocks.conf
+
+    # bar位置
+    # position top|bottom
+    position top
+
+    # mode dock|hide|invisible
+    mode dock
+
+    # hidden_state hide|show
+    hidden_state hide
+
+    # tray_output none|primary|<output>
+    # tray_output primary
+    tray_padding 0
+
+    # 显示/隐藏容器title
+    # workspace_buttons yes|no
+    workspace_buttons yes
+
+    workspace_min_width 108
+
+    # 屏蔽容器title序号
+    strip_workspace_numbers no
+
+    colors {
+       background #32302f
+       statusline #32302f
+       separator  #32302f
+                          #border #background #text
+       focused_workspace  #d65d0e #32302f     #bdae93
+       active_workspace   #d65d0e #32302f     #bdae93
+       inactive_workspace #32302f #32302f     #bdae93
+       urgent_workspace   #32302f #32302f     #fb4934
+       binding_mode       #32302f #32302f     #fb4934
+    }
+}

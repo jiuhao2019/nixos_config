@@ -1,0 +1,106 @@
+* xorg xorg-apps xorg-xinit xorg-server xorg-randr
+* polkit-gnome
+#+begin_comment
+可执行文件路径如下
+polkit_agent_path = "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+#+end_comment
+* fortune-mod 3.26.1-1
+#+begin_comment
+此应用包含fortune, 如下列举是各种数据库包
+       fortune-mod-anti-jokes-git r4.f75fcc2-1
+       fortune-mod-archlinux 1-3
+       fortune-mod-discworld 0-3
+       fortune-mod-issa-haiku 1.1-5
+       fortune-mod-question-answer-jokes 4.3-1
+       fortune-mod-vimtips 201510719-3
+       fortune-mod-zh 2.98-1
+#+end_comment
+* awesome      lua配置的tile-wm
+* glxinfo      查看显示参数
+* picom        支持其他软件的透明效果
+* lsof
+* dex 专门执行 desktop entry 的工具
+#+begin_comment
+ 应用不在环境path里时
+ 用 .desktop 启动：
+dex /usr/share/applications/xxx.desktop
+#+end_comment
+* libgccgit    编译emacs源码需要
+* v2rayn-bin    代理工具
+* ncdu      交互式清理工具
+* qt5ct
+* unzip
+* ibus
+* ibus-rime
+* ca-certificates
+* doublecmd            文件浏览器
+* okular               pdf查看器
+* fastfetch
+* ranger
+* tmux
+* libreoffice
+* fish
+* starship
+* git-delta
+* ctags
+* meld
+* git
+* lxappearance
+* imagemagick
+* ueberzug
+* fontconfig
+* vlc
+* cifs-utils
+* samba
+* chrony
+* curl
+* wget
+* fd
+* fswatch
+* texinfo
+* btop
+* xclip
+* dmenu
+* dunst
+* rofi
+* 7zip
+* astyle 3.6.12-1
+* calibre 8.7.0-2
+* devtools 1:1.4.0-3
+* eza 0.23.3-1          yet another ls
+* fastfetch 2.52.0-1
+* feh 3.11.2-1
+* fish 4.0.8-1
+* intel-ucode 20250812-1
+* neovim 0.11.4-1
+* networkmanager 1.54.1-1
+* noto-fonts 1:2025.09.01-1
+* noto-fonts-cjk 20240730-1
+* noto-fonts-emoji 1:2.051-1
+* noto-fonts-extra 1:2025.09.01-1
+* ntfs-3g 2022.10.3-2
+* open-vm-tools 6:13.0.0-1
+* paru 2.1.0-1
+* pavucontrol 1:6.2-1
+* picom 12.5-3
+* prettier 3.6.2-2
+* pulseaudio 17.0+r43+g3e2bb8a1e-1
+* python-pynvim 0.6.0-1
+* ranger 1.9.4-4
+* ripgrep 14.1.1-1
+* starship 1.23.0-1
+* stylua 2.2.0-1
+* tmux 3.5_a-1
+* ungoogled-chromium-bin
+* vulkan-intel 1:25.2.3-2
+* wqy-microhei 0.2.0_beta-12
+* wqy-zenhei 0.9.45-10
+* xf86-video-intel 1:2.99.917+939+g4a64400e-1
+* xf86-video-vesa 2.6.0-2
+* xterm 402-1
+* zoxide 0.9.8-2
+#+begin_comment
+是一个增强版的 cd 命令工具，用于快速跳转目录。
+            它会记录你经常访问的目录，并根据访问频率和最近访问时间进行排序，
+            你只需要输入目录名的一部分即可跳转
+#+end_comment

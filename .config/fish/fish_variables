@@ -1,0 +1,10 @@
+# This file contains fish universal variable definitions.
+# VERSION: 3.0
+SETUVAR --export EDITOR:nvim
+SETUVAR --export LANG:en_US\x2eUTF\x2d8
+SETUVAR --export QT_QPA_PLATFORMTHEME:qt5ct
+SETUVAR --export QT_STYLE_OVERRIDE:Fusion
+SETUVAR --export VISUAL:nvim
+SETUVAR __fish_initialized:4300
+SETUVAR fish_greeting:\x1d
+SETUVAR fish_user_paths:/home/nerd/\x2efzf/bin
