@@ -56,14 +56,14 @@
 (defhydra hydra-org-table (:color blue :hint nil )
   "
 ☞ org-table
-[_c_]create         [_o_]export-table  [_v_]valign-toggle  [_d_]insert-row
-[_r_]insert-column  [_x_]del-column
+[_c_]create         [_o_]export-table  [_v_]valign-toggle  [_u_]insert-row
+[_l_]insert-column  [_x_]del-column
   "
   ("c"   org-table-create )
   ("o"   org-table-export-to-spreadsheet )
   ("v"   valign-mode )
-  ("r"   org-table-insert-row )
-  ("d"   org-table-insert-column )
+  ("u"   org-table-insert-row )
+  ("l"   org-table-insert-column )
   ("x"   org-table-delete-column )
   ("q"   keyboard-quit :color blue))
 
