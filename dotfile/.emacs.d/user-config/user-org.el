@@ -342,32 +342,36 @@
 ;;============================================================
 ;;           table最后按tab不自动新建新行
 ;;============================================================
-(defun my-org-table-last-field-p ()
-  "Return non-nil if point is in the last field of the Org table."
+(defun org-table-next-field ()
+  "Go to the next field in the current table, without creating new lines.
+Before doing so, re-align the table if necessary."
+  (interactive)
+  (org-table-maybe-eval-formula)
+  (org-table-maybe-recalculate-line)
+  (when (and org-table-automatic-realign
+             org-table-may-need-update)
+    (org-table-align))
   (let ((end (org-table-end)))
-    (save-excursion
-      ;; 检查当前字段后面是否还有字段分隔符。
-      (if (re-search-forward "|" (line-end-position) t)
-          nil
-        ;; 当前已经是本行最后一个字段。
-        ;; 再检查后面是否还有数据行。
-        (goto-char (line-end-position))
-        (if (re-search-forward
-             "^[ \t]*|\\([^-]\\)"
-             end
-             t)
-            nil
-          t)))))
-
-(defun my-org-table-next-field-no-new-row (orig-fun &rest args)
-  "Prevent `org-table-next-field' from adding a row at table end."
-  (if (and (org-at-table-p)
-           (my-org-table-last-field-p))
-      (message "End of table")
-    (apply orig-fun args)))
-
-(advice-add 'org-table-next-field :around
-            #'my-org-table-next-field-no-new-row)
+    (if (org-at-table-hline-p)
+        (end-of-line 1))
+    (condition-case nil
+        (progn
+          (re-search-forward "|" end)
+          (if (looking-at "[ \t]*$")
+              (re-search-forward "|" end))
+          (if (and (looking-at "-")
+                   org-table-tab-jumps-over-hlines
+                   (re-search-forward "^[ \t]*|\\([^-]\\)" end t))
+              (goto-char (match-beginning 1)))
+          (if (looking-at "-")
+              (progn
+                (forward-line -1)
+                (org-table-insert-row 'below))
+            (if (looking-at " ")
+                (forward-char 1))))
+      (error
+       ;; At the end of the table: do not create a new row.
+       (message "End of table")))))
 ;;============================================================
 ;;                 end
 ;;============================================================
