@@ -127,13 +127,14 @@
 (defhydra hydra-org-misc (:color blue :hint nil )
   "
 ☞ org-misc
-[_i_]toggle-inline-img  [_o_]export-html [_n_]narrow-to-subtree
-[_h_]html-to-org
+[_i_]toggle-inline-img  [_o_]export-html     [_n_]narrow-to-subtree
+[_h_]html-to-org        [_e_]eval-expression
   "
   ( "i"   org-toggle-inline-images )
   ( "o"   org-html-export-to-html )
   ( "n"   org-toggle-narrow-to-subtree )
   ( "h"   my-html-to-org )
+  ( "e"   eval-expression )
   ( "q"   keyboard-quit :color blue))
 
 (defhydra hydra-org (:color blue :hint nil )
