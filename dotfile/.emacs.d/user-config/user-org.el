@@ -334,4 +334,8 @@
 (remove-hook 'org-cycle-hook #'org-cycle-show-empty-lines)
 ;;打开org文件默认对齐表格
 (setq org-startup-align-all-tables t)
+
+;;导出显示下标须加大括号
+(setq org-export-with-sub-superscripts '{})
+
 (provide 'user-org)
