@@ -338,4 +338,32 @@
 ;;导出显示下标须加大括号
 (setq org-export-with-sub-superscripts '{})
 (setq evil-want-clipboard t)
+
+;;============================================================
+;;           table最后按tab不自动新建新行
+;;============================================================
+(defun my-org-table-at-last-field-p ()
+  "Return non-nil if point is in the last field of the current Org table."
+  (let ((end (org-table-end)))
+    (save-excursion
+      (re-search-forward "|" end)
+      (if (looking-at "[ \t]*$")
+          (not (re-search-forward "|" end t))
+        nil))))
+
+(defun my-org-table-next-field-no-new-row ()
+  "Go to the next Org table field, but don't create a row at the end."
+  (interactive)
+  (if (and (org-at-table-p)
+           (my-org-table-at-last-field-p))
+      (message "End of table")
+    (org-table-next-field)))
+
+(with-eval-after-load 'org-table
+  (define-key org-mode-map (kbd "TAB")
+              #'my-org-table-next-field-no-new-row))
+;;============================================================
+;;                 end
+;;============================================================
+
 (provide 'user-org)
