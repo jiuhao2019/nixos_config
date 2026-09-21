@@ -15,6 +15,7 @@
   home.file.".astylerc".source = ./dotfile/.astylerc;
   home.file.".gdbinit".source = ./dotfile/.gdbinit;
   home.file.".local/share/fcitx5/themes".source = ./fcitx5/themes;
+  home.file.".local/share/applications/mihomo.desktop".source = ./desktop/mihomo.desktop;
 
   xdg.configFile."awesome".source = ./.config/awesome;
   xdg.configFile."nvim".source = ./.config/nvim;

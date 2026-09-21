@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Mihomo
+Comment=Mihomo Proxy
+Exec=mihomo
+Terminal=false
+Type=Application
+Categories=Network;

@@ -1,6 +1,6 @@
 想让 rofi 搜索时自动显示这个程序
 
-rofi 默认是通过 .desktop 启动项来显示程序的。
+rofi drun 默认是通过 .desktop 启动项来显示程序的。
 你可以为它创建一个 .desktop 文件：
 nvim ~/.local/share/applications/myapp.desktop
 填入内容
