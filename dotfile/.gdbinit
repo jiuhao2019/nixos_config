@@ -6,3 +6,4 @@ set breakpoint pending on
 set disassemble-next-line on
 set history save on
 set history filename ~/.gdb_history
+target remote localhost:2331
