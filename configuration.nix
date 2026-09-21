@@ -38,8 +38,9 @@
     wget
     curl
     git
-    clash-verge-rev
-    webkitgtk_4_1
+	pkgs.v2rayn
+    # clash-verge-rev
+    # webkitgtk_4_1
   ];
 
   environment.variables = {
