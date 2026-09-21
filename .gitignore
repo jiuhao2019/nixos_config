@@ -19,6 +19,8 @@ zen/lock
 .config/gtk-3.0/
 .config/pavucontrol.ini
 .config/mimeapps.list
+.config/mihomo/cache.db
+.config/mihomo/providers/
 
 *.py[cod]
 __pycache__/

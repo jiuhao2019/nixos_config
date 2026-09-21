@@ -38,10 +38,7 @@
     wget
     curl
     git
-	pkgs.mihomo
-	# pkgs.v2rayn
-    # clash-verge-rev
-    # webkitgtk_4_1
+    pkgs.mihomo
   ];
 
   environment.variables = {

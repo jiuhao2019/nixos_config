@@ -1,0 +1,23 @@
+mixed-port: 7890
+allow-lan: false
+mode: rule
+
+external-controller: 127.0.0.1:9090
+secret: '135987'
+external-ui: /home/microvee/.config/mihomo/ui
+
+proxy-providers:
+  starlink:
+    type: http
+    url: "https://stov4.statab.de/scrb/061bf0fc942474e9300f7dfd4aeba13c"
+    path: ./providers/starlink.yaml
+    interval: 86400
+
+proxy-groups:
+  - name: PROXY
+    type: select
+    use:
+      - starlink
+
+rules:
+  - MATCH,PROXY
