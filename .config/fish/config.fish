@@ -48,9 +48,9 @@ function zi
     cd (zoxide query -i | string collect)
 end
 # 代理
-#set -x http_proxy http://127.0.0.1:7890
-#set -x https_proxy http://127.0.0.1:7890
-#set -x NO_PROXY 127.0.0.1,localhost
+set -x http_proxy http://127.0.0.1:7890
+set -x https_proxy http://127.0.0.1:7890
+set -x NO_PROXY 127.0.0.1,localhost
 
 # 差异比较程序
 set -x DIFFPROG vimdiff
@@ -81,13 +81,6 @@ function unzip_here
         echo "正在解压到当前目录: $file"
         unzip -o $file  # -o 覆盖已有文件
     end
-end
-function proxy_paru
-    env \
-        http_proxy=http://127.0.0.1:7897 \
-        https_proxy=http://127.0.0.1:7897 \
-        all_proxy=socks5h://127.0.0.1:7897 \
-        paru $argv
 end
 
 set -x MAKEFLAGS "-j"(nproc)

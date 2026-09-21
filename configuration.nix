@@ -27,8 +27,8 @@
 
   networking.hostName = "nixos"; 
   networking.networkmanager.enable = true;
-  # networking.proxy.default = "http://127.0.0.1:7897";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.proxy.default = "http://127.0.0.1:7890";
+  networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   networking.firewall.enable = false;
 
   time.timeZone = "Asia/Shanghai";
@@ -38,7 +38,8 @@
     wget
     curl
     git
-	pkgs.v2rayn
+	pkgs.mihomo
+	# pkgs.v2rayn
     # clash-verge-rev
     # webkitgtk_4_1
   ];
