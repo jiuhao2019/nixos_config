@@ -5,7 +5,7 @@ local keys = {
 	-- { key = "y", mods = "LEADER", action = act({ CopyTo = "Clipboard" }) }, -- 复制
 	-- { key = "p", mods = "LEADER", action = act({ PasteFrom = "Clipboard" }) }, -- 粘贴
 	-- misc/useful --
-	-- { key = "[", mods = "LEADER", action = "ActivateCopyMode" }, -- copy-mode
+	{ key = "[", mods = "LEADER", action = "ActivateCopyMode" }, -- copy-mode
 	-- { key = "f", mods = "LEADER", action = act.Search({ CaseInSensitiveString = "" }) },
 	-- tabs:
 	-- { key = "t", mods = "LEADER", action = act.SpawnCommandInNewTab({ args = { "tmux" } }) },  -- 新建tab后运行命令
