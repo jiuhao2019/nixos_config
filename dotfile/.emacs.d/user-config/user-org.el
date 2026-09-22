@@ -160,12 +160,13 @@
 ;; ;;;;;;;;;;;;;;;;;
  (custom-set-faces
   '(org-tag
-    ((t (:foreground "#83a598"
- 		    :background "#D79921"
+    ((t (:foreground "#000000"
+ 		    :background "#83a598"
  		    :weight medium
  		    :height 1.0)))))
 ;yellow   #D79921
 ;bright_yellow #FABD2F
+;淡蓝色 #83a598
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Add frame borders and window dividers
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
