@@ -253,7 +253,7 @@ vim.o.termguicolors = true
 -- 显示行号和相对行号
 vim.o.number = true
 vim.o.relativenumber = true
-vim.o.cursorline = true
+vim.o.cursorline = false
 
 -- default updatetime 4000ms is not good for async update
 vim.o.updatetime = 100
