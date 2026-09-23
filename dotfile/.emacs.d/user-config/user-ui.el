@@ -31,43 +31,5 @@
                 mode-line-position
                 mode-line-end-spaces))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                  激活/非激活tab颜色
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        ;; tab-bar
-        `(tab-bar ((,class
-                    (:background ,bg1
-                     :foreground ,fg3
-                     :box nil))))
-
-        `(tab-bar-tab ((,class
-                        (:background ,keyword
-                         :foreground ,bg1
-                         :weight bold
-                         :box nil))))
-
-        `(tab-bar-tab-inactive ((,class
-                                 (:background ,bg2
-                                  :foreground ,fg3
-                                  :weight normal
-                                  :box nil))))
-
-        ;; tab-line
-        `(tab-line ((,class
-                     (:background ,bg1
-                      :foreground ,fg3
-                      :box nil))))
-
-        `(tab-line-tab-current ((,class
-                                 (:background ,keyword
-                                  :foreground ,bg1
-                                  :weight bold
-                                  :box nil))))
-
-        `(tab-line-tab-inactive ((,class
-                                  (:background ,bg2
-                                   :foreground ,fg3
-                                   :weight normal
-                                   :box nil))))
 
 (provide 'user-ui)

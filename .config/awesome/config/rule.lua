@@ -158,11 +158,11 @@ awful.rules.rules = {
 		},
 	},
 	{
-		rule = { class = "jetbrains-clion" },
+		rule = { class = "com.follow.clash" },
 		properties = {
 			screen = 1,
-			tag = "7",
-			switch_to_tags = true,
+			tag = "⒍",
+			switch_to_tags = false,
 			placement = awful.placement.centered,
 		},
 	},
