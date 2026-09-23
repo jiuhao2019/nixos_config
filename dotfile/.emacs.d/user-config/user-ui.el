@@ -34,13 +34,40 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                  激活/非激活tab颜色
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(set-face-attribute 'tab-bar-tab nil
-                    :foreground "#8f8f8f"
-                    :background "#4b4b4b"
-                    :weight 'bold)
-(set-face-attribute 'tab-bar-tab-inactive nil
-                    :foreground "#6d6d6d"
-                    :background "#292929"
-                    :weight 'normal)
+        ;; tab-bar
+        `(tab-bar ((,class
+                    (:background ,bg1
+                     :foreground ,fg3
+                     :box nil))))
+
+        `(tab-bar-tab ((,class
+                        (:background ,keyword
+                         :foreground ,bg1
+                         :weight bold
+                         :box nil))))
+
+        `(tab-bar-tab-inactive ((,class
+                                 (:background ,bg2
+                                  :foreground ,fg3
+                                  :weight normal
+                                  :box nil))))
+
+        ;; tab-line
+        `(tab-line ((,class
+                     (:background ,bg1
+                      :foreground ,fg3
+                      :box nil))))
+
+        `(tab-line-tab-current ((,class
+                                 (:background ,keyword
+                                  :foreground ,bg1
+                                  :weight bold
+                                  :box nil))))
+
+        `(tab-line-tab-inactive ((,class
+                                  (:background ,bg2
+                                   :foreground ,fg3
+                                   :weight normal
+                                   :box nil))))
 
 (provide 'user-ui)
