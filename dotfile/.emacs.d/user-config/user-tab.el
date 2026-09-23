@@ -18,7 +18,5 @@
   (require 'vim-tab-bar)
   (add-hook 'after-init-hook #'vim-tab-bar-mode)
 
-  ;; Hide the Vim Tab Bar when only a single tab exists
-  (customize-set-variable 'tab-bar-show 1)
 
 (provide 'user-tab)
