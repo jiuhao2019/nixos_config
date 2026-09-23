@@ -113,7 +113,7 @@ awful.rules.rules = {
 		},
 	},
 	{
-		rule_any = { class = { "thunar" ,"Thunar"}, },
+		rule_any = { class = { "thunar", "Thunar" } },
 		properties = { screen = 1, tag = "⒋", switch_to_tags = true, placement = awful.placement.centered },
 	},
 	{
@@ -149,7 +149,7 @@ awful.rules.rules = {
 		},
 	},
 	{
-		rule_any = { class = { "clash-verge" ,"Clash-verge"} },
+		rule_any = { class = { "clash-verge", "Clash-verge" } },
 		properties = {
 			screen = 1,
 			tag = "⒍",
@@ -158,7 +158,7 @@ awful.rules.rules = {
 		},
 	},
 	{
-		rule = { class = "com.follow.clash" },
+		rule_any = { class = { "com.follow.clash", "FlClash" } },
 		properties = {
 			screen = 1,
 			tag = "⒍",
