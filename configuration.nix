@@ -39,6 +39,7 @@
     curl
     git
     pkgs.mihomo
+    pkgs.flclash
   ];
 
   environment.variables = {
