@@ -339,7 +339,6 @@
 
 ;;导出显示下标须加大括号
 (setq org-export-with-sub-superscripts '{})
-(setq evil-want-clipboard t)
 
 ;;============================================================
 ;;           table最后按tab不自动新建新行
