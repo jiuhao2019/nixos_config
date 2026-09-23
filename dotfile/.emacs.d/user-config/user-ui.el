@@ -31,4 +31,16 @@
                 mode-line-position
                 mode-line-end-spaces))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                  激活/非激活tab颜色
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(set-face-attribute 'tab-bar-tab nil
+                    :foreground "#8f8f8f"
+                    :background "#4b4b4b"
+                    :weight 'bold)
+(set-face-attribute 'tab-bar-tab-inactive nil
+                    :foreground "#6d6d6d"
+                    :background "#292929"
+                    :weight 'normal)
+
 (provide 'user-ui)
