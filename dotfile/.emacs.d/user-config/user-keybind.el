@@ -158,13 +158,13 @@
 (defhydra hydra-vim-tab-bar (:color blue :hint nil )
   "
 ☞ vim-tab-bar
-[_e_]new  [_s_]switch  [_n_]next   [_p_]prev
+[_e_]new  [_s_]switch  [_n_]next   [_N_]prev
 [_x_]close
   "
   ( "e"   tab-new  )
   ( "s"   tab-switch  )
   ( "n"   tab-bar-switch-to-next-tab  )
-  ( "p"   tab-bar-switch-to-prev-tab  )
+  ( "N"   tab-bar-switch-to-prev-tab  )
   ( "x"   tab-close  )
   ( "q"   keyboard-quit :color blue))
 
