@@ -30,42 +30,18 @@
 (require 'user-font)
 
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(custom-set-variables)
 (custom-set-faces
  '(tab-bar
    ((t (:background "#292929"
         :foreground "#787878"
         :box nil))))
-
  '(tab-bar-tab
    ((t (:background "#6b83ac"
         :foreground "#292929"
         :weight bold
         :box nil))))
-
  '(tab-bar-tab-inactive
-   ((t (:background "#3a3a3a"
-        :foreground "#787878"
-        :weight normal
-        :box nil))))
-
- '(tab-line
-   ((t (:background "#292929"
-        :foreground "#787878"
-        :box nil))))
-
- '(tab-line-tab-current
-   ((t (:background "#6b83ac"
-        :foreground "#292929"
-        :weight bold
-        :box nil))))
-
- '(tab-line-tab-inactive
    ((t (:background "#3a3a3a"
         :foreground "#787878"
         :weight normal
