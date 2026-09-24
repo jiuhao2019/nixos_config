@@ -117,9 +117,7 @@ awful.rules.rules = {
 		properties = { screen = 1, tag = "⒋", switch_to_tags = true, placement = awful.placement.centered },
 	},
 	{
-		rule = {
-			instance = { "libreoffice" },
-		},
+		rule = { instance = "libreoffice" },
 		properties = {
 			screen = 1,
 			tag = "⒌",
