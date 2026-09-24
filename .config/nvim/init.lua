@@ -46,7 +46,12 @@ require("plugin.tagbar")
 require("plugin.neo-tree")
 
 -- noice.nvim
+-- 底部信息和命令 显示在独立的窗口,不须提示等待按enter
 require("plugin.noice")
+
+-- 一个文件的不同位置在多个split窗口同步滚动
+require("plugin.scroll-it")
+
 ---- ---------------------------------------- 自定义的功能函数
 require("functions.quickfix_next").setup()
 require("functions.multi_substitue").setup()
@@ -61,6 +66,7 @@ require("functions.tab_to_space").setup({
 })
 
 require("functions.add_comment").setup()
+require("functions.sync_updown_vsplit_win").setup()
 ---- --------------------------cmp靠后加载，方便其他插件已经加载
 require("plugin.cmp")
 require("plugin.telescope")
