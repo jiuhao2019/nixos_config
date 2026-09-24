@@ -12,11 +12,6 @@ local function get_pair()
     return wins[1], wins[2]
 end
 
-local function is_enabled()
-    local tab = vim.api.nvim_get_current_tabpage()
-    return enabled[tab] == true
-end
-
 local function toggle()
     local tab = vim.api.nvim_get_current_tabpage()
     local win1, win2 = get_pair()
@@ -36,8 +31,6 @@ local function toggle()
         vim.api.nvim_win_call(win2, function()
             vim.cmd("setlocal scrollbind")
         end)
-
-        vim.cmd("syncbind")
     else
         vim.api.nvim_win_call(win1, function()
             vim.cmd("setlocal noscrollbind")
