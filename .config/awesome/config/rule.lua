@@ -104,7 +104,7 @@ awful.rules.rules = {
 		},
 	},
 	{
-		rule_any = { class = { "emacs", "Emacs" } },
+		rule = { class = "Emacs" },
 		properties = {
 			screen = 1,
 			tag = "⒊",
@@ -113,12 +113,12 @@ awful.rules.rules = {
 		},
 	},
 	{
-		rule_any = { class = { "thunar", "Thunar" } },
+		rule = { class = "Thunar" },
 		properties = { screen = 1, tag = "⒋", switch_to_tags = true, placement = awful.placement.centered },
 	},
 	{
-		rule_any = {
-			class = { "LibreOffice", "libreoffice", "libreoffice-writer", "libreoffice-calc" },
+		rule = {
+			instance = { "libreoffice" },
 		},
 		properties = {
 			screen = 1,
@@ -149,7 +149,7 @@ awful.rules.rules = {
 		},
 	},
 	{
-		rule_any = { class = { "clash-verge", "Clash-verge" } },
+		rule = { class = "Clash-verge" },
 		properties = {
 			screen = 1,
 			tag = "⒍",
@@ -158,7 +158,7 @@ awful.rules.rules = {
 		},
 	},
 	{
-		rule= { class = "Com.follow.clash" },
+		rule = { class = "Com.follow.clash" },
 		properties = {
 			screen = 1,
 			tag = "⒍",
