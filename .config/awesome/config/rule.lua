@@ -122,10 +122,6 @@ awful.rules.rules = {
 			screen = 1,
 			tag = "⒌",
 			switch_to_tags = true,
-			size_hints_honor = false,
-			floating = true,
-			maximized = false,
-			fullscreen = false,
 		},
 	},
 	{
