@@ -28,62 +28,33 @@ local function toggle()
 
     enabled[tab] = not enabled[tab]
 
-    vim.notify("Scroll sync " .. (enabled[tab] and "ON" or "OFF"))
-end
+    if enabled[tab] then
+        vim.api.nvim_win_call(win1, function()
+            vim.cmd("setlocal scrollbind")
+        end)
 
-local function execute_both(keys)
-    local current = vim.api.nvim_get_current_win()
-    local win1, win2 = get_pair()
+        vim.api.nvim_win_call(win2, function()
+            vim.cmd("setlocal scrollbind")
+        end)
 
-    if not win1 or not win2 then
-        return
+        vim.cmd("syncbind")
+    else
+        vim.api.nvim_win_call(win1, function()
+            vim.cmd("setlocal noscrollbind")
+        end)
+
+        vim.api.nvim_win_call(win2, function()
+            vim.cmd("setlocal noscrollbind")
+        end)
     end
 
-    local target = current == win1 and win2 or win1
-
-    local count = vim.v.count
-    local command = (count > 0 and count .. " " or "") .. keys
-    command = vim.keycode(command)
-
-    -- 另一个窗口
-    vim.api.nvim_win_call(target, function()
-        vim.cmd("normal! " .. command)
-    end)
-
-    -- 当前窗口
-    vim.cmd("normal! " .. command)
+    vim.notify("Scroll sync " .. (enabled[tab] and "ON" or "OFF"))
 end
 
 function M.setup()
     vim.keymap.set("n", "<leader>ws", toggle, {
         silent = true,
     })
-
-    local keys = {
-        "j",
-        "k",
-        "<C-d>",
-        "<C-u>",
-        "<C-f>",
-        "<C-b>",
-        "<C-e>",
-        "<C-y>",
-    }
-
-    for _, key in ipairs(keys) do
-        vim.keymap.set("n", key, function()
-            if is_enabled() then
-                execute_both(key)
-            else
-                local count = vim.v.count
-                local command = (count > 0 and count .. " " or "") .. key
-
-                vim.cmd("normal! " .. vim.keycode(command))
-            end
-        end, {
-            silent = true,
-        })
-    end
 end
 
 return M
