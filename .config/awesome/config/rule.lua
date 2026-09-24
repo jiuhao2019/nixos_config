@@ -158,7 +158,7 @@ awful.rules.rules = {
 		},
 	},
 	{
-		rule_any = { class = { "com.follow.clash", "FlClash" } },
+		rule_any = { class = "Com.follow.clash" },
 		properties = {
 			screen = 1,
 			tag = "⒍",
