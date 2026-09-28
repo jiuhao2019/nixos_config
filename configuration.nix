@@ -41,7 +41,8 @@
     git
     ungoogled-chromium
   ])
-  ++ (with inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}; [
+  # ++ (with inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}; [
+  ++ (with inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}; [
     clash-verge-rev
     vim
     neovim
