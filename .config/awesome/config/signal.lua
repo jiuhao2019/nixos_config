@@ -18,9 +18,9 @@ local focus_sta = require("function.table")
 -- ----------------------
 local no_urgent_class = {
 	v2rayN = true,
-	["clash-verge"] = true,
+	FlClash = true,
+	["Clash-verge"] = true,
 	["mihomo-party"] = true,
-	["Com.follow.clash"] = true,
 }
 client.connect_signal("property::urgent", function(c)
 	if c.class and no_urgent_class[c.class] then

@@ -23,7 +23,7 @@
 
   ;; ----- Setting cursor colors
   (setq evil-emacs-state-cursor    '("#649bce" box))
-  (setq evil-normal-state-cursor   '("#d9a871" box))
+  (setq evil-normal-state-cursor   '("#ebdbb2" box))
   (setq evil-operator-state-cursor '("#ebcb8b" hollow))
   (setq evil-visual-state-cursor   '("#677691" box))
   (setq evil-insert-state-cursor   '("#eb998b" (bar . 2)))

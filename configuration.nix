@@ -1,7 +1,7 @@
 { config, lib, pkgs, inputs, ... }:
 {
   imports =
-    [ 
+    [
       ./hardware-configuration.nix
     ];
 
@@ -18,7 +18,9 @@
     "udev.log_level=3"
   ];
 
+  system.stateVersion = "26.05";
   nix.settings.experimental-features = ["nix-command" "flakes"];
+
   nix.settings.substituters = [ 
     "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=5" 
     "https://mirrors.ustc.edu.cn/nix-channels/store?priority=10" 
@@ -28,19 +30,23 @@
   networking.hostName = "nixos"; 
   networking.networkmanager.enable = true;
   networking.proxy.default = "http://127.0.0.1:7890";
-  networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.proxy.noProxy = "127.0.0.1,localhost";
   networking.firewall.enable = false;
 
   time.timeZone = "Asia/Shanghai";
 
-  environment.systemPackages = with pkgs; [
-    vim
+  environment.systemPackages = (with pkgs; [
     wget
     curl
     git
-    pkgs.mihomo
-    pkgs.flclash
-  ];
+    ungoogled-chromium
+  ])
+  ++ (with inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}; [
+    clash-verge-rev
+    vim
+    neovim
+    wezterm
+  ]);
 
   environment.variables = {
     EDITOR = "nvim";
@@ -120,7 +126,7 @@
     enable = true;
     settings = {
       PermitRootLogin = "no";
-      PasswordAuthentication = false;
+      PasswordAuthentication = true;
     };
   };
   # 解决jlink的usb权限
@@ -162,5 +168,4 @@
       ];
     }
   ];
-  system.stateVersion = "26.05";
 }

@@ -80,7 +80,7 @@ awful.rules.rules = {
 		properties = {
 			size_hints_honor = false,
 			screen = 1,
-			tag = "⒈",
+			tag = "⒈   ",
 			switch_to_tags = true,
 			placement = awful.placement.centered,
 		},
@@ -99,7 +99,7 @@ awful.rules.rules = {
 		rule = { class = "Chromium" },
 		properties = {
 			screen = 1,
-			tag = "⒉",
+			tag = "⒉   ",
 			switch_to_tags = true,
 		},
 	},
@@ -107,20 +107,27 @@ awful.rules.rules = {
 		rule = { class = "Emacs" },
 		properties = {
 			screen = 1,
-			tag = "⒊",
+			tag = "⒊   ",
 			switch_to_tags = true,
 			size_hints_honor = false,
 		},
 	},
 	{
 		rule = { class = "Thunar" },
-		properties = { screen = 1, tag = "⒋", switch_to_tags = true, placement = awful.placement.centered },
-	},
-	{
-		rule = { instance = "libreoffice" },
 		properties = {
 			screen = 1,
-			tag = "⒌",
+			tag = "⒋   ",
+			switch_to_tags = true,
+			placement = awful.placement.centered,
+		},
+	},
+	{
+		rule_any = {
+			class = { "libreoffice-writer", "libreoffice-calc" },
+		},
+		properties = {
+			screen = 1,
+			tag = "⒌   ",
 			switch_to_tags = true,
 		},
 	},
@@ -128,7 +135,7 @@ awful.rules.rules = {
 		rule = { class = "v2rayN" },
 		properties = {
 			screen = 1,
-			tag = "⒍",
+			tag = "⒍   ",
 			switch_to_tags = false,
 			placement = awful.placement.centered,
 		},
@@ -137,16 +144,7 @@ awful.rules.rules = {
 		rule = { class = "mihomo-party" },
 		properties = {
 			screen = 1,
-			tag = "⒍",
-			switch_to_tags = false,
-			placement = awful.placement.centered,
-		},
-	},
-	{
-		rule = { class = "Clash-verge" },
-		properties = {
-			screen = 1,
-			tag = "⒍",
+			tag = "⒍   ",
 			switch_to_tags = false,
 			placement = awful.placement.centered,
 		},
@@ -155,7 +153,25 @@ awful.rules.rules = {
 		rule = { class = "Com.follow.clash" },
 		properties = {
 			screen = 1,
-			tag = "⒍",
+			tag = "⒍   ",
+			switch_to_tags = false,
+			placement = awful.placement.centered,
+		},
+	},
+	{
+		rule = { class = "Clash-nyanpasu" },
+		properties = {
+			screen = 1,
+			tag = "⒍   ",
+			switch_to_tags = false,
+			placement = awful.placement.centered,
+		},
+	},
+	{
+		rule = { class = "Clash-verge" },
+		properties = {
+			screen = 1,
+			tag = "⒍   ",
 			switch_to_tags = false,
 			placement = awful.placement.centered,
 		},

@@ -1,5 +1,9 @@
 { config, pkgs, inputs, ... }:
-
+let
+  pkgs-unstable = import inputs.nixpkgs-unstable {
+    inherit (pkgs.stdenv.hostPlatform) system;
+  };
+in
 {
   home.username = "microvee";
   home.homeDirectory = "/home/microvee";
@@ -15,7 +19,6 @@
   home.file.".astylerc".source = ./dotfile/.astylerc;
   home.file.".gdbinit".source = ./dotfile/.gdbinit;
   home.file.".local/share/fcitx5/themes".source = ./fcitx5/themes;
-  home.file.".local/share/applications/mihomo.desktop".source = ./desktop/mihomo.desktop;
 
   xdg.configFile."awesome".source = ./.config/awesome;
   xdg.configFile."nvim".source = ./.config/nvim;
@@ -25,14 +28,15 @@
   xdg.configFile."rofi".source = ./.config/rofi;
   xdg.configFile."dunst".source = ./.config/dunst;
   xdg.configFile."lf".source = ./.config/lf;
-  xdg.configFile."mihomo/config.yaml".source = ./.config/mihomo/config.yaml;
-  xdg.configFile."mihomo/ui".source = ./.config/mihomo/ui;
+  # xdg.configFile."mihomo/config.yaml".source = ./.config/mihomo/config.yaml;
+  # xdg.configFile."mihomo/ui".source = ./.config/mihomo/ui;
 
-  home.packages = with pkgs;[
+home.packages =
+  (with pkgs; [
     mermaid-cli
     plantuml
     graphviz
-	pandoc
+    pandoc
     prettier
     stylua
     diffnav
@@ -45,7 +49,7 @@
     clang
     clang-tools
     emacs
-    btop  
+    btop
     neovim
     picom
     rofi
@@ -53,22 +57,25 @@
     gruvbox-dark-gtk
     gruvbox-dark-icons-gtk
     python3
-    ungoogled-chromium
     usbutils
     fastfetch
     nh
     open-vm-tools
-    eza 
+    eza
     lf
-    wezterm
     tmux
     unzip
     fd
     ripgrep
     xclip
     tree
-    pkgs.bibata-cursors
-  ];
+    bibata-cursors
+    feh
+  ])
+  ++ (with pkgs-unstable; [
+    wezterm
+  ]);
+
   home.pointerCursor = {
     enable = true;
     package = pkgs.bibata-cursors;

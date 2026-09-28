@@ -84,7 +84,7 @@ local tasklist_buttons = gears.table.join(
 )
 awful.screen.connect_for_each_screen(function(s)
 	awful.tag(
-		{ "⒈", "⒉", "⒊", "⒋", "⒌", "⒍", "⒎", "⒏", "⒐" },
+		{ "⒈   ", "⒉   ", "⒊   ", "⒋   ", "⒌   ", "⒍   ", "⒎   ", "⒏   ", "⒐   " },
 		s,
 		awful.layout.layouts[1]
 	)

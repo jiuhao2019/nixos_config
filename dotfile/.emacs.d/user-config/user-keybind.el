@@ -56,7 +56,7 @@
 (defhydra hydra-org-table (:color blue :hint nil )
   "
 ☞ org-table
-[_c_]create         [_o_]export-table  [_v_]valign-toggle  [_u_]insert-row
+[_c_]create         [_o_]export-table  [_v_]toggle-valign  [_u_]insert-row
 [_l_]insert-column  [_x_]del-column
   "
   ("c"   org-table-create )
@@ -70,7 +70,7 @@
 (defhydra hydra-org-link (:color blue :hint nil )
   "
 ☞ org-link
-[_o_]open  [_t_]toggle-show  [_i_]insert
+[_o_]open  [_t_]toggle-display  [_i_]insert
   "
   ( "o"   org-open-at-point )
   ( "t"   org-toggle-link-display )
@@ -80,16 +80,17 @@
 (defhydra hydra-org-block (:color blue :hint nil )
   "
 ☞ org-block
-[_i_]insert-c-src  [_I_]insert-select
+[_i_]insert-c-src  [_I_]insert-template  [_d_]del-template
   "
   ("i"   my-org-region-to-c-src)
   ("I"   org-insert-structure-template)
+  ("d"   my-org-remove-structure-template)
   ("q"   keyboard-quit :color blue))
 
 (defhydra hydra-org-note (:color blue :hint nil )
   "
 ☞ org-note
-[_f_]find-note [_p_]find-pdf
+[_f_]open  [_p_]open-pdf
   "
   ("f"   my/counsel-org-find)
   ("p"   my-counsel-find-file-papers)
@@ -98,7 +99,7 @@
 (defhydra hydra-org-capture (:color blue :hint nil )
   "
 ☞ org-capture
-[_c_]capture [_r_]refile [_o_]open-capture-folder
+[_c_]new  [_r_]refile  [_o_]open
   "
   ("c"   counsel-org-capture)
   ("r"   org-refile)
@@ -108,7 +109,7 @@
 (defhydra hydra-org-tag (:color blue :hint nil )
   "
 ☞ org-tag
-[_l_]list [_e_]edit
+[_l_]list  [_e_]edit
   "
   ( "l"   org-tags-view  )
   ( "e"   org-set-tags-command  )
@@ -117,7 +118,7 @@
 (defhydra hydra-org-footnote (:color blue :hint nil )
   "
 ☞ org-footnote
-[_a_]action  [_r_]ref  [_d_]def
+[_a_]action  [_r_]to-ref  [_d_]to-define
   "
   ( "a"   my-org-footnote-action-after  )
   ( "r"   org-footnote-goto-previous-reference )
@@ -127,8 +128,8 @@
 (defhydra hydra-org-misc (:color blue :hint nil )
   "
 ☞ org-misc
-[_i_]toggle-inline-img  [_o_]export-html     [_n_]narrow-to-subtree
-[_h_]html-to-org        [_e_]eval-expression
+[_i_]toggle-inline  [_o_]export-html     [_n_]narrow2subtree
+[_h_]html2org       [_e_]eval-expression
   "
   ( "i"   org-toggle-inline-images )
   ( "o"   org-html-export-to-html )
@@ -140,9 +141,9 @@
 (defhydra hydra-org (:color blue :hint nil )
   "
 ☞ org
-[_a_]+agenda [_b_]+block [_l_]+link [_n_]+note
-[_t_]+tag    [_e_]+table [_x_]+misc [_c_]+capture
-[_f_]+fn
+[_a_]+agenda   [_b_]+block  [_l_]+link  [_n_]+note
+[_t_]+tag      [_e_]+table  [_x_]+misc  [_c_]+capture
+[_f_]+footnote
   "
   ( "a"   hydra-org-agenda/body)
   ( "b"   hydra-org-block/body)
@@ -158,7 +159,7 @@
 (defhydra hydra-vim-tab-bar (:color blue :hint nil )
   "
 ☞ vim-tab-bar
-[_e_]new  [_s_]switch  [_n_]next   [_N_]prev
+[_e_]new    [_s_]switch  [_n_]next  [_N_]prev
 [_x_]close
   "
   ( "e"   tab-new  )
@@ -171,8 +172,8 @@
 (defhydra hydra-file (:color blue :hint nil )
   "
 ☞ file
-[_d_]dired           [_e_]ranger  [_r_]rg  [_o_]old-file-open
-[_c_]old-file-clear
+[_d_]dired      [_e_]ranger  [_r_]rg  [_o_]open-old
+[_c_]clear-old
   "
   ("d"   dired)
   ("e"   ranger)
@@ -184,8 +185,8 @@
 (defhydra hydra-motion (:color blue :hint nil )
   "
 ☞ motion
-[_f_]f     [_F_]F     [_j_]motion
-[_t_]t     [_T_]T
+[_f_]f  [_F_]F   [_j_]motion
+[_t_]t  [_T_]T
   "
   ("j"   avy-goto-char-timer)
   ("f"   evil-avy-find-char)
@@ -197,8 +198,8 @@
 (defhydra hydra-misc (:color blue :hint nil )
   "
 ☞ misc
-[_a_]truncate  [_c_]close-all-buffer    [_|_]split
-[_-_]vsplit    [_w_]del-trailing-space
+[_|_]split   [_c_]clean-buffers   [_a_]toggle-truncate
+[_-_]vsplit  [_w_]clean-trailing
   "
   ("a"   toggle-truncate-lines)
   ("c"   my/clean-buffers)

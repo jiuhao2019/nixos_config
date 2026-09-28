@@ -160,13 +160,11 @@
 ;; ;;;;;;;;;;;;;;;;;
  (custom-set-faces
   '(org-tag
-    ((t (:foreground "#000000"
- 		    :background "#83a598"
+    ((t (:foreground "#83a598"
+ 		    :background "#282828"
  		    :weight medium
  		    :height 1.0)))))
-;yellow   #D79921
-;bright_yellow #FABD2F
-;淡蓝色 #83a598
+
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Add frame borders and window dividers
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -376,5 +374,33 @@ Before doing so, re-align the table if necessary."
 ;;============================================================
 ;;                 end
 ;;============================================================
+(defun my-org-remove-structure-template ()
+  "Remove the begin/end delimiters of the current Org structure block."
+  (interactive)
+  (let ((element (org-element-context)))
+    (when (memq (org-element-type element)
+                '(src-block
+                  example-block
+                  export-block
+                  center-block
+                  quote-block
+                  verse-block
+                  comment-block
+                  special-block))
+      (let ((begin (org-element-property :begin element))
+            (end (org-element-property :end element)))
+
+        ;; Delete #+end_xxx first, so BEGIN does not move.
+        (goto-char end)
+        (forward-line -1)
+        (delete-region (line-beginning-position)
+                       (min (point-max)
+                            (1+ (line-end-position))))
+
+        ;; Delete #+begin_xxx.
+        (goto-char begin)
+        (delete-region (line-beginning-position)
+                       (min (point-max)
+                            (1+ (line-end-position))))))))
 
 (provide 'user-org)
