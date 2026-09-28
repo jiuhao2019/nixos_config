@@ -402,5 +402,8 @@ Before doing so, re-align the table if necessary."
         (delete-region (line-beginning-position)
                        (min (point-max)
                             (1+ (line-end-position))))))))
-
+(setq org-file-apps
+      '((auto-mode . emacs)
+        ("\\.pdf\\'" . "okular %s")
+        (system . default)))
 (provide 'user-org)
