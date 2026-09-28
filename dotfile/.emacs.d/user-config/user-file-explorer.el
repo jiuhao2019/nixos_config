@@ -19,7 +19,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 文献目录
 (setq my-papers-directory
-  (expand-file-name "/mnt/hgfs/chengzhao/datasheet/"))
+  (expand-file-name "/mnt/hgfs/D/chengzhao/datasheet/"))
 ;; counsel-find-file 进入文献目录
 (defun my-counsel-find-file-papers ()
   (interactive)
