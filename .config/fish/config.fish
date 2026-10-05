@@ -14,8 +14,7 @@ set -gx PATH /usr/local/bin $PATH
 set -gx PATH /usr/bin $PATH
 
 abbr ls "eza"
-abbr ll "eza -al --git"
-abbr lt "eza -T"
+abbr ll "eza -T"
 abbr ld "eza -lD"
 
 function gg
@@ -45,9 +44,6 @@ end
 
 # starship init fish | source
 zoxide init fish | source
-# function zz
-#     cd (zoxide query -i | string collect)
-# end
 alias zz zi
 # 代理
 set -x http_proxy http://127.0.0.1:7890
@@ -87,7 +83,7 @@ end
 
 set -x MAKEFLAGS "-j"(nproc)
 
-set -x WEBKIT_DISABLE_DMABUF_RENDERER 1
+# set -x WEBKIT_DISABLE_DMABUF_RENDERER 1
 
 function lf
     set tmp (mktemp)
@@ -107,4 +103,21 @@ end
 if status is-login
     and isatty stdin
     startx
+end
+
+# 带进度条的mv 和cp
+# mvg source destination
+function mvg
+    rsync -a --human-readable --info=progress2 --remove-source-files $argv
+    if test $status -eq 0
+        for src in $argv[1..-2]
+            if test -d "$src"
+                find "$src" -depth -type d -empty -delete
+            end
+        end
+    end
+end
+
+function cpg
+    rsync -a --human-readable --info=progress2 $argv
 end

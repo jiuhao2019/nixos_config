@@ -71,6 +71,7 @@ home.packages =
     tree
     bibata-cursors
     feh
+    rsync
   ])
   ++ (with pkgs-unstable; [
     wezterm
