@@ -293,7 +293,7 @@
 (setq valign-enforce-alignment t)
 (setq valign-resize-separator t)
 (setq valign-autorefresh-rate 1.5)  ;; 刷新
-;;(add-hook 'org-mode-hook #'valign-mode)
+(add-hook 'org-mode-hook #'valign-mode)
 
 ;; 将选择区域设置为src块
 (defun my-org-region-to-c-src (beg end)
