@@ -165,6 +165,15 @@
  		    :weight medium
  		    :height 1.0)))))
 
+(defun my-org-tag-delimiter-face ()
+  (font-lock-add-keywords
+   nil
+   '(("\\(:\\)\\([^:\n]+\\)\\(:\\)"
+      (1 '(:foreground "#504945") prepend)
+      (3 '(:foreground "#504945") prepend)))
+   'append))
+
+(add-hook 'org-mode-hook #'my-org-tag-delimiter-face)
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Add frame borders and window dividers
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -198,12 +207,19 @@
 (setq org-refile-use-outline-path 'file)
 (setq org-outline-path-complete-in-steps nil)
 
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;              org bullet
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'org-bullets)
 ;;(setq org-bullets-bullet-list '("⓿" "❶" "❷" "❸" "❹" "❺" "❻" "❼" "❽" "❾"))
 ;;(setq org-bullets-bullet-list '("⁰" "¹" "²" "³" "⁴" "⁵" "⁶" "⁷" "⁸" "⁹"))
 (setq org-bullets-bullet-list '("₀" "₁" "₂" "₃" "₄" "₅" "₆" "₇" "₈" "₉"))
 ;;(setq org-bullets-bullet-list '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧" "⑨"))
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;              end
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; Org Agenda files
 ;; ============================================================
 ;; 只有这里的文件参与 Agenda
@@ -279,6 +295,7 @@
 (setq valign-autorefresh-rate 1.5)  ;; 刷新
 ;;(add-hook 'org-mode-hook #'valign-mode)
 
+;; 将选择区域设置为src块
 (defun my-org-region-to-c-src (beg end)
   "Wrap region in an Org C source block."
   (interactive "r")
@@ -292,6 +309,7 @@
             "#+end_src\n")))
 ;;(global-set-key (kbd "C-c C-b c") #'my-org-region-to-c-src)
 
+;; 将html导出为org
 (defun my-html-to-org (file)
   (interactive "fHTML file: ")
   (let ((output (concat (file-name-sans-extension file) ".org")))
@@ -402,8 +420,27 @@ Before doing so, re-align the table if necessary."
         (delete-region (line-beginning-position)
                        (min (point-max)
                             (1+ (line-end-position))))))))
+
 (setq org-file-apps
       '((auto-mode . emacs)
         ("\\.pdf\\'" . "okular %s")
         (system . default)))
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;         buffer auto save
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'buffer-guardian)
+
+(setq buffer-guardian-inhibit-saving-remote-files t
+      buffer-guardian-inhibit-saving-nonexistent-files nil
+      buffer-guardian-save-on-same-buffer-window-change t
+      buffer-guardian-verbose nil
+      buffer-guardian-override-save-some-buffers nil)
+
+(setq buffer-guardian-save-all-buffers-idle 30
+      buffer-guardian-save-all-buffers-interval (* 60 30))
+(buffer-guardian-mode 1)
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;         end
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (provide 'user-org)

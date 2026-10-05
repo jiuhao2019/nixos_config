@@ -173,9 +173,15 @@ ungrouped tabs."
          (fg-modeline-inactive (or (face-attribute
                                     'mode-line-inactive :foreground)
                                    color-fallback-light))
-         (bg-tab-inactive bg-modeline-inactive)
-         (fg-tab-inactive fg-modeline-inactive)
-         (fg-tab-active fg-default)
+         ;;(bg-tab-inactive bg-modeline-inactive)
+         ;;(fg-tab-inactive fg-modeline-inactive)
+         ;;(fg-tab-active fg-default)
+         ;;(bg-tab-active bg-default))
+	 ;; 原版自动适应主题
+	 ;; 但这里改为固定颜色，可以自己设置需要的颜色
+         (bg-tab-inactive "#3c3836")
+         (fg-tab-inactive "#928374")
+         (fg-tab-active "#ebdbb2")
          (bg-tab-active bg-default))
     (with-suppressed-warnings ((obsolete tab-bar-new-button-show))
       (setq tab-bar-new-button-show nil))  ; Obsolete as of Emacs 28.1
