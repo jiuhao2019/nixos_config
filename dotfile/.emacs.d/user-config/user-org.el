@@ -175,27 +175,22 @@
 ;;
 ;; (add-hook 'org-mode-hook #'my-org-tag-delimiter-face)
 
+(defun my-org-tag-delimiter-face ()
+  (font-lock-ensure)
+  (save-excursion
+    (beginning-of-line)
+    (let ((end (line-end-position)))
+      (while (re-search-forward ":" end t)
+        (let ((face (get-text-property (1- (point)) 'face)))
+          (when (memq 'org-tag
+                      (if (listp face) face (list face)))
+            (add-face-text-property
+             (1- (point)) (point)
+             '(:foreground "#504945")
+             t)))))))
 
-(defun my-org-tag-delimiter-face (limit)
-  (when (re-search-forward org-tag-line-re limit t)
-    (let ((beg (match-beginning 1))
-          (end (match-end 1)))
-      (save-excursion
-        (goto-char beg)
-        (while (re-search-forward ":" end t)
-          (font-lock-append-text-property
-           (1- (point)) (point)
-           'face
-           '(:foreground "#504945")))))
-    t))
+(add-hook 'org-font-lock-hook #'my-org-tag-delimiter-face)
 
-(defun my-org-tag-delimiter-setup ()
-  (font-lock-add-keywords
-   nil
-   '((my-org-tag-delimiter-face))
-   'append))
-
-(add-hook 'org-mode-hook #'my-org-tag-delimiter-setup)
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Add frame borders and window dividers
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
