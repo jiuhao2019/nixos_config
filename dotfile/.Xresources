@@ -16,7 +16,7 @@ Xcursor.size: 11
 XTerm*termName: xterm-256color
 
 XTerm*faceName: FiraCode Nerd Font Mono
-XTerm*faceSize: 11
+XTerm*faceSize: 13
 
 XTerm*saveLines: 10000
 XTerm*scrollBar: false
