@@ -6,4 +6,5 @@ export XMODIFIERS=@im=fcitx
 
 fcitx5 -d
 
+xrdb -merge ~/.Xresources
 exec awesome
