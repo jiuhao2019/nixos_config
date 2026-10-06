@@ -59,7 +59,7 @@ end
 -- Themes define colours, icons, font and wallpapers.
 
 -- This is used later as the default terminal and editor to run.
-terminal = "wezterm"
+terminal = "xterm"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " start -- " .. editor
 
@@ -83,14 +83,10 @@ local function run_once(process, cmd)
 end
 
 run_once("picom", "picom --config ~/.config/picom/picom.conf")
-run_once("clash-verge","sudo env WEBKIT_DISABLE_DMABUF_RENDERER=1 $(which clash-verge)")
-run_once("emacs","emacs")
--- run_once("mihomo","mihomo")
--- run_once("FlClash","FlClash")
--- run_once("clash-nyanpasu","clash-nyanpasu")
-run_once("chromium","chromium")
-run_once("wezterm-gui", "wezterm start -- tmux")
--- run_once("feh","feh --randomize --bg-fill ~/.local/share/backgrounds/gruvbox/wallpapers/")
+run_once("clash-verge", "sudo env WEBKIT_DISABLE_DMABUF_RENDERER=1 $(which clash-verge)")
+run_once("emacs", "emacs")
+run_once("chromium", "chromium")
+run_once("xterm", "xterm -e tmux")
 -- }}}
 
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
