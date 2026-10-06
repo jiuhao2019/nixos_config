@@ -165,14 +165,18 @@
  		    :weight medium
  		    :height 1.0)))))
 
- (defun my-org-tag-delimiter-face ()
-   (font-lock-add-keywords
-    nil
-    '(("\\(:\\)\\([^:\n]+\\)\\(:\\)"
-       (1 '(:foreground "#504945") prepend)
-       (3 '(:foreground "#504945") prepend)))
-    'append))
-
+;; (defun my-org-tag-delimiter-face ()
+;;   (font-lock-add-keywords
+;;    nil
+;;    '(("\\(:\\)\\([^:\n]+\\)\\(:\\)"
+;;       (1 '(:foreground "#504945") prepend)
+;;       (3 '(:foreground "#504945") prepend)))
+;;    'append))
+(defun my-org-tag-delimiter-face ()
+  (font-lock-add-keywords
+   nil
+   '((":" (0 '(:foreground "#504945") prepend)))
+   'append))
  (add-hook 'org-mode-hook #'my-org-tag-delimiter-face)
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
