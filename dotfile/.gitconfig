@@ -1,36 +1,54 @@
 [user]
-	name = jiuhao
-	email = 815514981@qq.com
+    name = jiuhao
+    email = 815514981@qq.com
 
 [core]
-	editor = nvim
+    editor = nvim
 
 [credential]
-	helper = store
+    helper = store
 
 [pull]
-	rebase = false
+    rebase = false
 
 [push]
-	autoSetupRemote = true
+    autoSetupRemote = true
 
 [init]
-	defaultBranch = main
+    defaultBranch = main
 
 [http]
-	proxy = http://127.0.0.1:7890
+    proxy = http://127.0.0.1:7890
 
 [https]
-	proxy = http://127.0.0.1:7890
+    proxy = http://127.0.0.1:7890
 
 [pager]
     diff = diffnav
     log = diffnav
     reflog = diffnav
 [delta]
+    plus-style = "syntax #32361a"
+    minus-style = "syntax #3c1f1e"
+    features = side-by-side line-numbers decorations
+    syntax-theme = Gruvbox Material Dark
     navigate = true
-    side-by-side = true
-    line-numbers = true
-    syntax-theme = Dracula
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold ul
+    file-decoration-style = none
+    hunk-header-decoration-style = "#5a524c" box ul
+
+[delta "line-numbers"]
+    line-numbers-plus-style = "#6c782e"
+    line-numbers-minus-style = "#c14a4a"
+    line-numbers-left-style = "#5a524c"
+    line-numbers-right-style = "#5a524c"
+    line-numbers-zero-style = "#5a524c"
+
 [safe]
-	directory = *
+    directory = *
+
+[interactive]
+    diffFilter = delta --color-only

@@ -1,4 +1,4 @@
-require("remember").setup({
+require("scroll-it").setup({
 
 	enabled = false, -- Enable the plugin on startup
 	reversed = false, -- Reverse the continuous direction (default: left-to-right, top-to-bottom)

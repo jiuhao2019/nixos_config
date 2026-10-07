@@ -48,6 +48,7 @@ local function ShowFloat(opts_override)
 		"leader tj      jump tabpage",
 		" ",
 		"leader e       切换c/h",
+		"leader ws      切换同步滚动",
 		" ",
 		"leader pe      new-workspace",
 		"leader po      open-workspace",

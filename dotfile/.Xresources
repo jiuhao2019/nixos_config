@@ -1,5 +1,6 @@
 ! ============================================================
 ! Xresources — Gruvbox
+! Based on gruvbox.nvim palette
 ! ============================================================
 
 ! ------------------------------------------------------------
@@ -31,46 +32,49 @@ XTerm*bellIsUrgent: false
 XTerm*visualBell: false
 
 ! 文本光标
-XTerm*cursorColor: #ebdbb2
+XTerm*cursorColor: #ddc7a1
 XTerm*cursorBlink: false
 
 ! 窗口内边距
 XTerm*internalBorder: 8
 
-
 ! ------------------------------------------------------------
 ! Gruvbox — Base
 ! ------------------------------------------------------------
 
-XTerm*background: #282828
-XTerm*foreground: #ebdbb2
+XTerm*background: #32302f
+XTerm*foreground: #d4be98
 
-XTerm*color0:  #282828
-XTerm*color1:  #cc241d
-XTerm*color2:  #98971a
-XTerm*color3:  #d79921
-XTerm*color4:  #458588
-XTerm*color5:  #b16286
-XTerm*color6:  #689d6a
-XTerm*color7:  #a89984
+! ------------------------------------------------------------
+! ANSI 16 colors
+! ------------------------------------------------------------
 
-XTerm*color8:  #928374
-XTerm*color9:  #fb4934
-XTerm*color10: #b8bb26
-XTerm*color11: #fabd2f
-XTerm*color12: #83a598
+! Normal
+XTerm*color0:  #1d2021
+XTerm*color1:  #ea6962
+XTerm*color2:  #a9b665
+XTerm*color3:  #d8a657
+XTerm*color4:  #7daea3
+XTerm*color5:  #d3869b
+XTerm*color6:  #89b482
+XTerm*color7:  #d4be98
+
+! Bright
+XTerm*color8:  #5a524c
+XTerm*color9:  #ea6962
+XTerm*color10: #a9b665
+XTerm*color11: #e78a4e
+XTerm*color12: #7daea3
 XTerm*color13: #d3869b
-XTerm*color14: #8ec07c
-XTerm*color15: #ebdbb2
-
+XTerm*color14: #89b482
+XTerm*color15: #ddc7a1
 
 ! ------------------------------------------------------------
 ! XTerm — Selection
 ! ------------------------------------------------------------
 
-XTerm*highlightColor: #504945
-XTerm*highlightTextColor: #ebdbb2
-
+XTerm*highlightColor: #45403d
+XTerm*highlightTextColor: #ddc7a1
 
 ! ------------------------------------------------------------
 ! XTerm — URL / underline
@@ -78,14 +82,12 @@ XTerm*highlightTextColor: #ebdbb2
 
 XTerm*underLine: true
 
-
 ! ------------------------------------------------------------
 ! XTerm — Geometry
 ! ------------------------------------------------------------
 
 ! 默认窗口大小
 XTerm*geometry: 120x35
-
 
 ! ------------------------------------------------------------
 ! XTerm — Misc
@@ -95,6 +97,6 @@ XTerm*geometry: 120x35
 XTerm*menuBar: false
 
 ! 禁止 Ctrl+S 导致 XOFF
-XTerm*vt100*translations: #override \
-    Ctrl<Key>S: string(0x13) \n\
-    Ctrl<Key>Q: string(0x11)
+XTerm*vt100*translations: #override 
+Ctrl<Key>S: string(0x13) \n
+Ctrl<Key>Q: string(0x11)
