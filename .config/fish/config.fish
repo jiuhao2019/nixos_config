@@ -22,7 +22,8 @@ function gg
 end
 abbr gd "git diff"
 abbr gl "git pull"
-abbr gs "git push"
+abbr gp "git push"
+abbr gs "git status"
 
 abbr rm "rm -irv"
 
