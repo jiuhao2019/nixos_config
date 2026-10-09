@@ -55,9 +55,6 @@ require("plugin.scroll-it")
 -- fold
 require("plugin.nvim-origami")
 
--- mini.diff
-require("plugin.mini-diff")
-
 ---- ---------------------------------------- 自定义的功能函数
 require("functions.quickfix_next").setup()
 require("functions.multi_substitue").setup()
