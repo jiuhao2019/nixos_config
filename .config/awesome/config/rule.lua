@@ -96,11 +96,22 @@ awful.rules.rules = {
 		end,
 	},
 	{
+		rule = { class = "XTerm" },
+		properties = {
+			screen = 1,
+			tag = "⒈   ",
+			switch_to_tags = true,
+			maximized = true,
+			-- fullscreen = true,
+		},
+	},
+	{
 		rule = { class = "Chromium" },
 		properties = {
 			screen = 1,
 			tag = "⒉   ",
 			switch_to_tags = true,
+			maximized = true,
 		},
 	},
 	{
@@ -110,6 +121,7 @@ awful.rules.rules = {
 			tag = "⒊   ",
 			switch_to_tags = true,
 			size_hints_honor = false,
+			maximized = true,
 		},
 	},
 	{
@@ -119,6 +131,7 @@ awful.rules.rules = {
 			tag = "⒋   ",
 			switch_to_tags = true,
 			placement = awful.placement.centered,
+			maximized = true,
 		},
 	},
 	{
