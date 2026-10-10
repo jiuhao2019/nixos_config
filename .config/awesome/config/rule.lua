@@ -83,6 +83,7 @@ awful.rules.rules = {
 			tag = "⒈   ",
 			switch_to_tags = true,
 			placement = awful.placement.centered,
+			maximized = true,
 		},
 		callback = function(c)
 			local g = c.screen.workarea
@@ -149,7 +150,7 @@ awful.rules.rules = {
 		rule = { class = "Clash-verge" },
 		properties = {
 			screen = 1,
-			tag = "6   ",
+			tag = "⒍   ",
 			switch_to_tags = true,
 			placement = awful.placement.centered,
 			maximized = true,
