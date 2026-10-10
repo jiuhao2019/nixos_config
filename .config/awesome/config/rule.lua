@@ -85,16 +85,6 @@ awful.rules.rules = {
 			placement = awful.placement.centered,
 			maximized = true,
 		},
-		callback = function(c)
-			local g = c.screen.workarea
-
-			c:geometry({
-				x = g.x + 700,
-				y = g.y + 50,
-				width = math.floor(g.width * 0.5),
-				height = math.floor(g.height * 0.8),
-			})
-		end,
 	},
 	{
 		rule = { class = "XTerm" },
