@@ -145,5 +145,15 @@ awful.rules.rules = {
 			maximized = true,
 		},
 	},
+	{
+		rule = { class = "Clash-verge" },
+		properties = {
+			screen = 1,
+			tag = "6   ",
+			switch_to_tags = true,
+			placement = awful.placement.centered,
+			maximized = true,
+		},
+	},
 }
 -- }}}
