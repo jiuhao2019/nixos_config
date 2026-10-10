@@ -10,6 +10,11 @@
 Xcursor.theme: Bibata-Modern-Amber
 Xcursor.size: 11
 
+XTerm*VT100.translations: #override \
+    Ctrl <Key>plus: larger-vt-font() \n\
+    Ctrl <Key>equal: larger-vt-font() \n\
+    Ctrl <Key>minus: smaller-vt-font() \n\
+    Ctrl <Key>0: set-vt-font(d)
 ! ------------------------------------------------------------
 ! XTerm — General
 ! ------------------------------------------------------------
