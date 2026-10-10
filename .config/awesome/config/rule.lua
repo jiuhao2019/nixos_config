@@ -142,51 +142,7 @@ awful.rules.rules = {
 			screen = 1,
 			tag = "⒌   ",
 			switch_to_tags = true,
-		},
-	},
-	{
-		rule = { class = "v2rayN" },
-		properties = {
-			screen = 1,
-			tag = "⒍   ",
-			switch_to_tags = false,
-			placement = awful.placement.centered,
-		},
-	},
-	{
-		rule = { class = "mihomo-party" },
-		properties = {
-			screen = 1,
-			tag = "⒍   ",
-			switch_to_tags = false,
-			placement = awful.placement.centered,
-		},
-	},
-	{
-		rule = { class = "Com.follow.clash" },
-		properties = {
-			screen = 1,
-			tag = "⒍   ",
-			switch_to_tags = false,
-			placement = awful.placement.centered,
-		},
-	},
-	{
-		rule = { class = "Clash-nyanpasu" },
-		properties = {
-			screen = 1,
-			tag = "⒍   ",
-			switch_to_tags = false,
-			placement = awful.placement.centered,
-		},
-	},
-	{
-		rule = { class = "Clash-verge" },
-		properties = {
-			screen = 1,
-			tag = "⒍   ",
-			switch_to_tags = false,
-			placement = awful.placement.centered,
+			maximized = true,
 		},
 	},
 }

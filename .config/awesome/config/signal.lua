@@ -28,66 +28,66 @@ client.connect_signal("property::urgent", function(c)
 	end
 end)
 
-client.connect_signal("manage", function(c)
-	local class = c.class
-	if c.class == "Chromium" or c.class == "chromium" then
-		gears.timer.delayed_call(function()
-			if c.valid then
-				c.floating = true
-				c.maximized = false
-				c.fullscreen = false
+-- client.connect_signal("manage", function(c)
+-- 	local class = c.class
+-- 	if c.class == "Chromium" or c.class == "chromium" then
+-- 		gears.timer.delayed_call(function()
+-- 			if c.valid then
+-- 				c.floating = true
+-- 				c.maximized = false
+-- 				c.fullscreen = false
 
-				c:geometry({
-					width = 1500,
-					height = 1000,
-				})
+-- 				c:geometry({
+-- 					width = 1500,
+-- 					height = 1000,
+-- 				})
 
-				awful.placement.centered(c, {
-					honor_workarea = true,
-					honor_padding = true,
-				})
-			end
-		end)
-	end
-	-- Emacs
-	if c.class == "Emacs" or c.class == "emacs" then
-		gears.timer.delayed_call(function()
-			if c.valid then
-				c.floating = true
+-- 				awful.placement.centered(c, {
+-- 					honor_workarea = true,
+-- 					honor_padding = true,
+-- 				})
+-- 			end
+-- 		end)
+-- 	end
+-- 	-- Emacs
+-- 	if c.class == "Emacs" or c.class == "emacs" then
+-- 		gears.timer.delayed_call(function()
+-- 			if c.valid then
+-- 				c.floating = true
 
-				c:geometry({
-					width = 1400,
-					height = 900,
-				})
+-- 				c:geometry({
+-- 					width = 1400,
+-- 					height = 900,
+-- 				})
 
-				awful.placement.centered(c)
-			end
-		end)
-	end
-	-- libreoffice
-	if
-		c.class == "libreoffice"
-		or c.class == "LibreOffice"
-		or c.class == "libreOffice-startcenter"
-		or c.class == "libreoffice-writer"
-		or c.class == "libreoffice-calc"
-	then
-		gears.timer.delayed_call(function()
-			if c.valid then
-				c.floating = true
-				c.maximized = false
-				c.fullscreen = false
+-- 				awful.placement.centered(c)
+-- 			end
+-- 		end)
+-- 	end
+-- 	-- libreoffice
+-- 	if
+-- 		c.class == "libreoffice"
+-- 		or c.class == "LibreOffice"
+-- 		or c.class == "libreOffice-startcenter"
+-- 		or c.class == "libreoffice-writer"
+-- 		or c.class == "libreoffice-calc"
+-- 	then
+-- 		gears.timer.delayed_call(function()
+-- 			if c.valid then
+-- 				c.floating = true
+-- 				c.maximized = false
+-- 				c.fullscreen = false
 
-				c:geometry({
-					width = 1500,
-					height = 1000,
-				})
+-- 				c:geometry({
+-- 					width = 1500,
+-- 					height = 1000,
+-- 				})
 
-				awful.placement.centered(c)
-			end
-		end)
-	end
-end)
+-- 				awful.placement.centered(c)
+-- 			end
+-- 		end)
+-- 	end
+-- end)
 
 -- ----------------------------
 -- Enable sloppy focus, so that focus follows mouse.

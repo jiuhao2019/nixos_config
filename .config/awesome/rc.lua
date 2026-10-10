@@ -59,7 +59,7 @@ end
 -- Themes define colours, icons, font and wallpapers.
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xterm"
+terminal = "XTerm"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " start -- " .. editor
 
@@ -83,10 +83,10 @@ local function run_once(process, cmd)
 end
 
 run_once("picom", "picom --config ~/.config/picom/picom.conf")
+run_once("xterm", "xterm -e tmux")
 run_once("clash-verge", "sudo env WEBKIT_DISABLE_DMABUF_RENDERER=1 $(which clash-verge)")
 run_once("emacs", "emacs")
 run_once("chromium", "chromium")
-run_once("xterm", "xterm -e tmux")
 -- }}}
 
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
