@@ -73,6 +73,7 @@ home.packages =
     bibata-cursors
     feh
     rsync
+    unclutter
   ])
   ++ (with pkgs-unstable; [
     wezterm

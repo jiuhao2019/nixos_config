@@ -89,6 +89,7 @@ run_once("wezterm-gui", "wezterm start -- tmux")
 run_once("clash-verge", "sudo env WEBKIT_DISABLE_DMABUF_RENDERER=1 $(which clash-verge)")
 run_once("emacs", "emacs")
 run_once("chromium", "chromium")
+run_once("unclutter", "unclutter --timeout 3")
 -- }}}
 
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
