@@ -113,5 +113,9 @@ home.packages =
     enableFishIntegration = true;
   };
 
+  programs.nh = {
+    enable = true;
+    osFlake = "/home/microvee/Downloads/nixos";
+  };
   home.stateVersion = "26.05";
 }
