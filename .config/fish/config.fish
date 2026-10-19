@@ -84,8 +84,14 @@ end
 
 set -x MAKEFLAGS "-j"(nproc)
 
+if status is-login
+    and isatty stdin
+    startx
+end
+
 # set -x WEBKIT_DISABLE_DMABUF_RENDERER 1
 
+#lf 退出后即cd到最后的路径
 function lf
     set tmp (mktemp)
 
@@ -99,11 +105,6 @@ function lf
     end
 
     rm -f $tmp
-end
-
-if status is-login
-    and isatty stdin
-    startx
 end
 
 # 带进度条的mv 和cp
@@ -121,4 +122,16 @@ end
 
 function cpg
     rsync -a --human-readable --info=progress2 $argv
+end
+
+#yazi 退出后即cd到最后的路径
+function y
+    set tmp (mktemp -t "yazi-cwd.XXXXXX")
+    yazi $argv --cwd-file="$tmp"
+
+    if read -z cwd < "$tmp"; and test -n "$cwd"; and test "$cwd" != "$PWD"
+        builtin cd -- "$cwd"
+    end
+
+    rm -f -- "$tmp"
 end

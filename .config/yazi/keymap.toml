@@ -1,0 +1,39 @@
+[[mgr.prepend_keymap]]
+on   = [ "g", "h" ]
+run  = "cd ~"
+desc = "Go home"
+
+[[mgr.prepend_keymap]]
+on   = [ "g", "c" ]
+run  = "cd ~/.config"
+desc = "Go ~/.config"
+
+[[mgr.prepend_keymap]]
+on   = [ "g", "d" ]
+run  = "cd ~/Downloads"
+desc = "Go Downloads"
+
+[[mgr.prepend_keymap]]
+on   = [ "g", "n" ]
+run  = "cd /etc/nixos"
+desc = "Go NixOS config"
+
+[[mgr.prepend_keymap]]
+on   = [ "<C-h>" ]
+run  = "hidden toggle"
+desc = "Toggle hidden files"
+
+[[mgr.prepend_keymap]]
+on   = [ "<C-f>" ]
+run  = "find --smart"
+desc = "Find"
+
+[[mgr.prepend_keymap]]
+on   = [ "<C-s>" ]
+run  = "search --via=fd"
+desc = "Search files with fd"
+
+[[mgr.prepend_keymap]]
+on   = [ "e" ]
+run  = "open"
+desc = "Open selected file"
