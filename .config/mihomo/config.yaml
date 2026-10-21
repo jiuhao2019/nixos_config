@@ -7,17 +7,17 @@ secret: '135987'
 external-ui: /home/microvee/.config/mihomo/ui
 
 proxy-providers:
-  starlink:
+  gougou:
     type: http
-    url: "https://stov4.statab.de/scrb/061bf0fc942474e9300f7dfd4aeba13c"
-    path: ./providers/starlink.yaml
+    url: "https://LrFXraVt.doggygosubs.com:8443/api/v1/client/d9cf27eabbd1077c47dcfa3049b78735"
+    path: ./providers/gougou.yaml
     interval: 86400
 
 proxy-groups:
   - name: PROXY
     type: select
     use:
-      - starlink
+      - gougou
 
 rules:
   - MATCH,PROXY
