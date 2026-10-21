@@ -29,8 +29,8 @@ in
   xdg.configFile."rofi".source = ./.config/rofi;
   xdg.configFile."dunst".source = ./.config/dunst;
   xdg.configFile."lf".source = ./.config/lf;
-  # xdg.configFile."mihomo/config.yaml".source = ./.config/mihomo/config.yaml;
-  # xdg.configFile."mihomo/ui".source = ./.config/mihomo/ui;
+  xdg.configFile."mihomo/config.yaml".source = ./.config/mihomo/config.yaml;
+  xdg.configFile."mihomo/ui".source = ./.config/mihomo/ui;
 
 home.packages =
   (with pkgs; [

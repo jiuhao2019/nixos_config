@@ -47,6 +47,7 @@
     vim
     neovim
     wezterm
+	mihomo
   ]);
 
   environment.variables = {
