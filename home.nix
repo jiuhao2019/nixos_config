@@ -75,7 +75,7 @@ home.packages =
     unclutter
   ])
   ++ (with pkgs-unstable; [
-    meld
+
   ]);
 
   home.pointerCursor = {
