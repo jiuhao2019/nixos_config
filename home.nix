@@ -10,8 +10,6 @@ in
 
   home.file.".tmux".source = ./.tmux;
   home.file.".vim".source = ./.vim;
-  home.file.".local/bin/advcp".source = ./advcp;
-  home.file.".local/bin/advmv".source = ./advmv;
   home.file.".gitconfig".source = ./dotfile/.gitconfig;
   home.file.".xinitrc".source = ./dotfile/.xinitrc;
   home.file.".Xresources".source = ./dotfile/.Xresources;
