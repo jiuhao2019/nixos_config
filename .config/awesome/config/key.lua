@@ -135,7 +135,8 @@ globalkeys = gears.table.join(
 		-- awful.spawn.with_shell("/opt/v2rayn-bin/v2rayN")
 		-- awful.spawn.with_shell("/opt/mihomo-party/mihomo-party")
 		-- awful.spawn.with_shell("clash-verge")
-		awful.spawn.with_shell("sudo env WEBKIT_DISABLE_DMABUF_RENDERER=1 $(which clash-verge)")
+		-- awful.spawn.with_shell("sudo env WEBKIT_DISABLE_DMABUF_RENDERER=1 $(which clash-verge)")
+		awful.spawn.with_shell("mihomo -f ~/.config/mihomo/providers/gougou.yaml")
 	end),
 
 	awful.key({ modkey }, "Return", function()
