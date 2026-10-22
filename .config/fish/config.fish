@@ -47,8 +47,8 @@ end
 zoxide init fish | source
 alias zz zi
 # 代理
-set -x http_proxy http://127.0.0.1:7890
-set -x https_proxy http://127.0.0.1:7890
+set -x http_proxy http://127.0.0.1:7897
+set -x https_proxy http://127.0.0.1:7897
 set -x NO_PROXY 127.0.0.1,localhost
 
 # 差异比较程序
