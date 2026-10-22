@@ -51,7 +51,6 @@ home.packages =
     clang-tools
     emacs
     btop
-    neovim
     picom
     rofi
     dunst
@@ -76,7 +75,7 @@ home.packages =
     unclutter
   ])
   ++ (with pkgs-unstable; [
-    wezterm
+    meld
   ]);
 
   home.pointerCursor = {
