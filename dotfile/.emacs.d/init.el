@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t; -*-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                                             lisp-path
+;;                                               lisp-path
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (let ((base-dir (expand-file-name "lisp" user-emacs-directory)))
   (when (file-directory-p base-dir)
