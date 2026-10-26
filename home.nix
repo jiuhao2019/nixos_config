@@ -110,7 +110,6 @@ home.packages =
     enableFishIntegration = true;
   };
 
-
   programs.yazi = {
     enable = true;
     enableFishIntegration = true;
