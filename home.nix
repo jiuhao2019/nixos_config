@@ -112,7 +112,7 @@ home.packages =
 
   programs.nh = {
     enable = true;
-    osFlake = "/home/microvee/Downloads/nixos";
+    flake = "/home/microvee/Downloads/nixos";
   };
 
   programs.yazi = {
