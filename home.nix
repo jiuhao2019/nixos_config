@@ -114,6 +114,7 @@ home.packages =
     enable = true;
     osFlake = "/home/microvee/Downloads/nixos";
   };
+
   programs.yazi = {
     enable = true;
     enableFishIntegration = true;
