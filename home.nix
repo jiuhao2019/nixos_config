@@ -110,10 +110,6 @@ home.packages =
     enableFishIntegration = true;
   };
 
-  programs.nh = {
-    enable = true;
-    flake = "/home/microvee/Downloads/nixos";
-  };
 
   programs.yazi = {
     enable = true;

@@ -170,4 +170,9 @@
       ];
     }
   ];
+
+  programs.nh = {
+    enable = true;
+    flake = "/home/microvee/Downloads/nixos";
+  };
 }
