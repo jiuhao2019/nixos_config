@@ -227,39 +227,21 @@ vim.o.foldlevelstart = 99 -- 打开文件时从这个层级开始展开
 vim.o.foldenable = true
 vim.o.foldmethod = "expr"
 -- vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-vim.o.foldexpr = "v:lua.my_foldexpr()"
-local function is_cpp_if(line)
-    return line:match("^%s*#%s*if%s+") ~= nil
-        or line:match("^%s*#%s*ifdef%s+") ~= nil
-        or line:match("^%s*#%s*ifndef%s+") ~= nil
-end
+vim.o.foldexpr = "v:lua.test_foldexpr()"
 
-local function is_cpp_endif(line)
-    return line:match("^%s*#%s*endif%s*") ~= nil
-end
-
-function _G.cpp_foldexpr()
+function _G.test_foldexpr()
     local line = vim.fn.getline(vim.v.lnum)
 
-    if is_cpp_if(line) then
+    if line:match("^%s*#%s*if%s+") then
         return ">1"
     end
 
-    if is_cpp_endif(line) then
+    if line:match("^%s*#%s*endif") then
         return "<1"
     end
 
     return "="
 end
-
-
-
-
-
-
-
-
-
 
 -- 告诉 Neovim 使用这个 Python
 vim.g.python3_host_prog = os.getenv("HOME") .. "/.venvs/nvim/bin/python"
