@@ -53,7 +53,7 @@ require("plugin.noice")
 require("plugin.scroll-it")
 
 -- fold
-require("plugin.nvim-origami")
+-- require("plugin.nvim-origami")
 
 ---- ---------------------------------------- 自定义的功能函数
 require("functions.quickfix_next").setup()
