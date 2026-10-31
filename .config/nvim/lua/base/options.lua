@@ -226,22 +226,32 @@ vim.o.foldlevel = 99 -- 默认展开所有
 vim.o.foldlevelstart = 99 -- 打开文件时从这个层级开始展开
 vim.o.foldenable = true
 vim.o.foldmethod = "expr"
--- vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-vim.o.foldexpr = "v:lua.test_foldexpr()"
+vim.o.foldexpr = "v:lua.c_preproc_foldexpr()"
 
-function _G.test_foldexpr()
+function _G.c_preproc_foldexpr()
     local line = vim.fn.getline(vim.v.lnum)
 
-    if line:match("^%s*#%s*if%s+") then
-        return ">1"
+    -- #if / #ifdef / #ifndef
+    if line:match("^%s*#%s*if[%s%(]") or
+       line:match("^%s*#%s*ifdef%s+") or
+       line:match("^%s*#%s*ifndef%s+") then
+        return "a1"
     end
 
+    -- #endif
     if line:match("^%s*#%s*endif") then
-        return "<1"
+        return "s1"
     end
 
+    -- 其他行保持当前层级
     return "="
 end
+
+
+
+
+
+
 
 -- 告诉 Neovim 使用这个 Python
 vim.g.python3_host_prog = os.getenv("HOME") .. "/.venvs/nvim/bin/python"

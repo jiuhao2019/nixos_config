@@ -52,9 +52,6 @@ require("plugin.noice")
 -- 一个文件的不同位置在多个split窗口同步滚动
 require("plugin.scroll-it")
 
--- fold
-require("plugin.nvim-origami")
-
 ---- ---------------------------------------- 自定义的功能函数
 require("functions.quickfix_next").setup()
 require("functions.multi_substitue").setup()
