@@ -224,11 +224,10 @@ vim.opt.shortmess:append("IF")
 vim.o.foldcolumn = "1" -- 左边显示折叠标记
 vim.o.foldlevel = 99 -- 默认展开所有
 vim.o.foldlevelstart = 99 -- 打开文件时从这个层级开始展开
-vim.o.foldenable = false
+vim.o.foldenable = true
 vim.o.foldmethod = "expr"
 -- vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 vim.o.foldexpr = "v:lua.my_foldexpr()"
--- C/C++: Treesitter 折叠 + #if/#endif 折叠
 local function is_cpp_if(line)
     return line:match("^%s*#%s*if%s+") ~= nil
         or line:match("^%s*#%s*ifdef%s+") ~= nil
@@ -239,64 +238,18 @@ local function is_cpp_endif(line)
     return line:match("^%s*#%s*endif%s*") ~= nil
 end
 
-local function cpp_if_depth(bufnr, lnum)
-    local depth = 0
+function _G.cpp_foldexpr()
+    local line = vim.fn.getline(vim.v.lnum)
 
-    for i = 1, lnum do
-        local line = vim.api.nvim_buf_get_lines(bufnr, i - 1, i, false)[1] or ""
-
-        if is_cpp_if(line) then
-            depth = depth + 1
-        elseif is_cpp_endif(line) then
-            depth = math.max(0, depth - 1)
-        end
+    if is_cpp_if(line) then
+        return ">1"
     end
 
-    return depth
-end
-
-function _G.my_foldexpr()
-    local bufnr = vim.api.nvim_get_current_buf()
-    local lnum = vim.v.lnum
-
-    local line = vim.api.nvim_buf_get_lines(bufnr, lnum - 1, lnum, false)[1] or ""
-
-    local if_depth = cpp_if_depth(bufnr, lnum)
-
-    -- #endif 属于外层折叠的最后一行
     if is_cpp_endif(line) then
-        if_depth = if_depth + 1
+        return "<1"
     end
 
-    -- Treesitter 原来的 foldexpr
-    local ts_fold = vim.fn["nvim_treesitter#foldexpr"]()
-
-    -- Treesitter 没有折叠
-    if ts_fold == 0 or ts_fold == "=" then
-        return if_depth
-    end
-
-    -- Treesitter 的绝对 fold level
-    local ts_level
-
-    if type(ts_fold) == "number" then
-        ts_level = ts_fold
-    elseif type(ts_fold) == "string" then
-        local first = ts_fold:sub(1, 1)
-        local number = tonumber(ts_fold:sub(2))
-
-        if first == ">" then
-            ts_level = (vim.v.lnum > 1 and vim.fn.foldlevel(lnum - 1) or 0) + (number or 1)
-        elseif first == "<" then
-            ts_level = math.max(0, (vim.v.lnum > 1 and vim.fn.foldlevel(lnum - 1) or 0) - (number or 1))
-        else
-            ts_level = tonumber(ts_fold) or 0
-        end
-    else
-        ts_level = 0
-    end
-
-    return ts_level + if_depth
+    return "="
 end
 
 
