@@ -1,6 +1,6 @@
 require("origami").setup({
 	useLspFoldsWithTreesitterFallback = {
-		enabled = true,
+		enabled = false,
 		foldmethodIfNeitherIsAvailable = "indent", ---@type string|fun(bufnr: number): string
 	},
 	pauseFoldsOnSearch = true,
