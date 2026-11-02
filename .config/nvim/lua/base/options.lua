@@ -228,30 +228,39 @@ vim.o.foldenable = true
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "v:lua.c_preproc_foldexpr()"
 
+-- function _G.c_preproc_foldexpr()
+-- 	local line = vim.fn.getline(vim.v.lnum)
+
+-- 	-- #if / #ifdef / #ifndef
+-- 	if line:match("^%s*#%s*if[%s%(]") or line:match("^%s*#%s*ifdef%s+") or line:match("^%s*#%s*ifndef%s+") then
+-- 		return "a1"
+-- 	end
+
+-- 	-- #endif
+-- 	if line:match("^%s*#%s*endif") then
+-- 		return "s1"
+-- 	end
+
+-- 	-- 其他行保持当前层级
+-- 	return "="
+-- end
 function _G.c_preproc_foldexpr()
     local line = vim.fn.getline(vim.v.lnum)
 
     -- #if / #ifdef / #ifndef
-    if line:match("^%s*#%s*if[%s%(]") or
-       line:match("^%s*#%s*ifdef%s+") or
-       line:match("^%s*#%s*ifndef%s+") then
-        return "a1"
+    if line:match("^%s*#%s*if[%s%(]")
+        or line:match("^%s*#%s*ifdef%s+")
+        or line:match("^%s*#%s*ifndef%s+") then
+        return ">1"
     end
 
     -- #endif
     if line:match("^%s*#%s*endif") then
-        return "s1"
+        return "<1"
     end
 
-    -- 其他行保持当前层级
     return "="
 end
-
-
-
-
-
-
 
 -- 告诉 Neovim 使用这个 Python
 vim.g.python3_host_prog = os.getenv("HOME") .. "/.venvs/nvim/bin/python"
