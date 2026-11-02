@@ -229,23 +229,21 @@ vim.o.foldmethod = "expr"
 vim.o.foldexpr = "v:lua.c_preproc_foldexpr()"
 
 function _G.c_preproc_foldexpr()
-    local depth = 0
+    local line = vim.fn.getline(vim.v.lnum)
 
-    for i = 1, vim.v.lnum do
-        local line = vim.fn.getline(i)
-
-        if line:match("^%s*#%s*endif") then
-            depth = math.max(0, depth - 1)
-        end
-
-        if line:match("^%s*#%s*if[%s%(]")
-            or line:match("^%s*#%s*ifdef%s+")
-            or line:match("^%s*#%s*ifndef%s+") then
-            depth = depth + 1
-        end
+    -- 开始折叠
+    if line:match("^%s*#%s*if[%s%(]")
+        or line:match("^%s*#%s*ifdef%s+")
+        or line:match("^%s*#%s*ifndef%s+") then
+        return ">1"
     end
 
-    return depth
+    -- 结束折叠
+    if line:match("^%s*#%s*endif%s*$") then
+        return "<1"
+    end
+
+    return "="
 end
 
 -- 告诉 Neovim 使用这个 Python
