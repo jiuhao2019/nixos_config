@@ -14,8 +14,10 @@
     };
 
     # Helium Browser
-    helium-flake.url = "github:oxcl/nix-flake-helium-browser";
-    helium-flake.inputs.nixpkgs.follows = "nixpkgs";
+	helium-flake = {
+      url = "github:oxcl/nix-flake-helium-browser";
+      inputs.nixpkgs.follows = "nixpkgs";
+	};
   };
 
   outputs = inputs@{ nixpkgs, home-manager, nixpkgs-unstable,helium-flake, ... }: {
@@ -24,20 +26,10 @@
       nixos = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
+          inherit helium-flake;
         };
         modules = [
           ./configuration.nix
-
-          # Helium Browser
-          ({ pkgs, ... }: {
-            nixpkgs.overlays = [
-              helium-flake.overlays.default
-            ];
-
-            environment.systemPackages = [
-              pkgs.helium
-            ];
-          })
 
           home-manager.nixosModules.home-manager
           {

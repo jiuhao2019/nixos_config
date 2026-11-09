@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs,helium-flake, ... }:
 {
   imports =
     [
@@ -35,11 +35,16 @@
 
   time.timeZone = "Asia/Shanghai";
 
+  nixpkgs.overlays = [
+    helium-flake.overlays.default
+  ];
+
   environment.systemPackages = (with pkgs; [
     wget
     curl
     git
     ungoogled-chromium
+	helium
   ])
   # ++ (with inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}; [
   ++ (with inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}; [
