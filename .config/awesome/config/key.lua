@@ -149,6 +149,10 @@ globalkeys = gears.table.join(
 		awful.spawn.with_shell("rofi -show drun")
 	end),
 
+	awful.key({ modkey }, "h", function()
+		awful.spawn.with_shell("helium")
+	end),
+
 	awful.key({ modkey }, "j", function()
 		awful.client.focus.byidx(1)
 

@@ -40,7 +40,6 @@
     curl
     git
     ungoogled-chromium
-    inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
   ])
   # ++ (with inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}; [
   ++ (with inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}; [

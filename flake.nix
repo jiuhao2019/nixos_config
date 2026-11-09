@@ -14,13 +14,11 @@
     };
 
     # Helium Browser
-    helium = {
-      url = "github:schembriaiden/helium-browser-nix-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    helium-flake.url = "github:oxcl/nix-flake-helium-browser";
+    helium-flake.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nixpkgs-unstable,helium, ... }: {
+  outputs = inputs@{ nixpkgs, home-manager, nixpkgs-unstable,helium-flake, ... }: {
     nixosConfigurations = {
       # 这里的 my-nixos 替换成你的主机名
       nixos = nixpkgs.lib.nixosSystem {
@@ -29,6 +27,17 @@
         };
         modules = [
           ./configuration.nix
+
+          # Helium Browser
+          ({ pkgs, ... }: {
+            nixpkgs.overlays = [
+              helium-flake.overlays.default
+            ];
+
+            environment.systemPackages = [
+              pkgs.helium
+            ];
+          })
 
           home-manager.nixosModules.home-manager
           {
