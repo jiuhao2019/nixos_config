@@ -12,9 +12,15 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Helium Browser
+    helium = {
+      url = "github:schembriaiden/helium-browser-nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nixpkgs-unstable, ... }: {
+  outputs = inputs@{ nixpkgs, home-manager, nixpkgs-unstable,helium, ... }: {
     nixosConfigurations = {
       # 这里的 my-nixos 替换成你的主机名
       nixos = nixpkgs.lib.nixosSystem {
