@@ -17,8 +17,6 @@ local focus_sta = require("function.table")
 -- 指定的tag不产生urgent
 -- ----------------------
 local no_urgent_class = {
-	v2rayN = true,
-	FlClash = true,
 	["Clash-verge"] = true,
 	["mihomo-party"] = true,
 }

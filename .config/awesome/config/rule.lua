@@ -106,6 +106,15 @@ awful.rules.rules = {
 		},
 	},
 	{
+		rule = { class = "Helium" },
+		properties = {
+			screen = 1,
+			tag = "⒉   ",
+			switch_to_tags = true,
+			maximized = true,
+		},
+	},
+	{
 		rule = { class = "Emacs" },
 		properties = {
 			screen = 1,
