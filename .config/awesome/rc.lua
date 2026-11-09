@@ -84,14 +84,14 @@ local function run_once(process, cmd)
 end
 
 run_once("picom", "picom --config ~/.config/picom/picom.conf")
+run_once("unclutter", "unclutter -idle 3")
+-- run_once("clash-verge", "sudo env WEBKIT_DISABLE_DMABUF_RENDERER=1 $(which clash-verge)")
+-- run_once("emacs", "emacs")
+run_once("mihomo", "mihomo -f ~/.config/mihomo/providers/gougou.yaml")
+run_once("chromium", "chromium")
 -- run_once("xterm", "xterm -e tmux")
 -- run_once("wezterm-gui", "wezterm start -- tmux")
 run_once("wezterm-gui", "wezterm")
--- run_once("clash-verge", "sudo env WEBKIT_DISABLE_DMABUF_RENDERER=1 $(which clash-verge)")
-run_once("emacs", "emacs")
-run_once("mihomo", "mihomo -f ~/.config/mihomo/providers/gougou.yaml")
-run_once("chromium", "chromium")
-run_once("unclutter", "unclutter -idle 3")
 -- }}}
 
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
