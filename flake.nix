@@ -26,7 +26,6 @@
       nixos = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
-          inherit helium-flake;
         };
         modules = [
           ./configuration.nix

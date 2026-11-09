@@ -36,7 +36,7 @@
   time.timeZone = "Asia/Shanghai";
 
   nixpkgs.overlays = [
-    helium-flake.overlays.default
+    inputs.helium-flake.overlays.default
   ];
 
   environment.systemPackages = (with pkgs; [
