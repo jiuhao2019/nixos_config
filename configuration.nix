@@ -42,8 +42,6 @@
   environment.systemPackages = (with pkgs; [
     wget
     curl
-    git
-    ungoogled-chromium
 	helium
   ])
   # ++ (with inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}; [
@@ -53,6 +51,8 @@
     neovim
     wezterm
 	mihomo
+    git
+    ungoogled-chromium
   ]);
 
   environment.variables = {

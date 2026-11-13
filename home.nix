@@ -32,7 +32,6 @@ in
 
 home.packages =
   (with pkgs; [
-    mermaid-cli
     plantuml
     graphviz
     pandoc
@@ -44,10 +43,8 @@ home.packages =
     ncdu
     kdePackages.okular
     libreoffice
-    meld
     clang
     clang-tools
-    emacs
     btop
     picom
     rofi
@@ -56,24 +53,26 @@ home.packages =
     gruvbox-dark-icons-gtk
     python3
     usbutils
-    fastfetch
     nh
     open-vm-tools
     eza
-    lf
-    tmux
     unzip
     fd
-    ripgrep
     xclip
     tree
     bibata-cursors
     feh
     rsync
     unclutter
+    emacs
   ])
   ++ (with pkgs-unstable; [
-
+    ripgrep
+    fastfetch
+    tmux
+    mermaid-cli
+    meld
+    lf
   ]);
 
   home.pointerCursor = {
