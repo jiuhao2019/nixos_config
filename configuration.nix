@@ -53,6 +53,8 @@
 	mihomo
     git
     ungoogled-chromium
+    tmux
+    lf
   ]);
 
   environment.variables = {

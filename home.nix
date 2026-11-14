@@ -69,10 +69,8 @@ home.packages =
   ++ (with pkgs-unstable; [
     ripgrep
     fastfetch
-    tmux
     mermaid-cli
     meld
-    lf
   ]);
 
   home.pointerCursor = {
