@@ -32,6 +32,7 @@ in
 
 home.packages =
   (with pkgs; [
+    mermaid-cli
     plantuml
     graphviz
     pandoc
@@ -40,7 +41,6 @@ home.packages =
     diffnav
     ctags
     astyle
-    ncdu
     kdePackages.okular
     libreoffice
     clang
@@ -55,22 +55,22 @@ home.packages =
     usbutils
     nh
     open-vm-tools
-    eza
     unzip
-    fd
     xclip
     tree
     bibata-cursors
-    feh
     rsync
     unclutter
     emacs
   ])
   ++ (with pkgs-unstable; [
+    ncdu
+    fd
+    eza
     ripgrep
     fastfetch
-    mermaid-cli
     meld
+    feh
   ]);
 
   home.pointerCursor = {
