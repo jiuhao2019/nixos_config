@@ -10,6 +10,7 @@
   boot.loader.timeout = 3;
   boot.consoleLogLevel = 0;
   boot.initrd.verbose = false;
+  boot.loader.systemd-boot.consoleMode = "max";
   boot.kernelParams = [
     "quiet"
     "loglevel=3"
