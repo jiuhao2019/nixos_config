@@ -7,17 +7,25 @@ secret: '135987'
 external-ui: /home/microvee/.config/mihomo/ui
 
 proxy-providers:
-  gougou:
+  # gougou:
+  #   type: http
+  #   url: "https://LrFXraVt.doggygosubs.com:8443/api/v1/client/d9cf27eabbd1077c47dcfa3049b78735"
+  #   path: ./providers/gougou.yaml
+  #   interval: 86400
+
+  yueto:
     type: http
-    url: "https://LrFXraVt.doggygosubs.com:8443/api/v1/client/d9cf27eabbd1077c47dcfa3049b78735"
-    path: ./providers/gougou.yaml
+    url: "https://sso.yuetoto.com/api/v2/avatar/95f2ff676e03fb0f085526d90a6b3d03"
+    path: ./providers/yueto.yaml
     interval: 86400
+
 
 proxy-groups:
   - name: PROXY
     type: select
     use:
-      - gougou
+      # - gougou
+      - yueto
 
 rules:
   - MATCH,PROXY
