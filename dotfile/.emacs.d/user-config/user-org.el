@@ -172,12 +172,12 @@
 ;;       (1 '(:foreground "#504945") prepend)
 ;;       (3 '(:foreground "#504945") prepend)))
 ;;    'append))
-(defun my-org-tag-delimiter-face ()
-  (font-lock-add-keywords
-   nil
-   '((":" (0 '(:foreground "#504945") prepend)))
-   'append))
- (add-hook 'org-mode-hook #'my-org-tag-delimiter-face)
+;;(defun my-org-tag-delimiter-face ()
+;;  (font-lock-add-keywords
+;;   nil
+;;   '((":" (0 '(:foreground "#504945") prepend)))
+;;   'append))
+;; (add-hook 'org-mode-hook #'my-org-tag-delimiter-face)
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Add frame borders and window dividers
