@@ -40,12 +40,6 @@ set arm force-mode thumb
 set disassemble-next-line on
 
 # ==============================
-# 多线程调试
-# ==============================
-
-set scheduler-locking off
-
-# ==============================
 # 远程连接 J-Link
 # ==============================
 
