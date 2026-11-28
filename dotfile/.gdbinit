@@ -1,3 +1,14 @@
+# 自定义命令
+define rs
+    monitor reset
+    continue
+end
+
+define bmain
+    break main
+    continue
+end
+
 # ==============================
 # GDB 基础设置
 # ==============================
